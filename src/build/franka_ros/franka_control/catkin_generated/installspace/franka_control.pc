@@ -1,0 +1,8 @@
+prefix=/home/yannic/yannic_master/src/install
+
+Name: franka_control
+Description: Description of franka_control
+Version: 0.7.0
+Cflags: -I${prefix}/include -I/home/yannic/yannic_master/src/libfranka/include
+Libs: -L${prefix}/lib -lfranka_state_controller /home/yannic/yannic_master/src/libfranka/build/libfranka.so.0.8.0
+Requires: controller_interface franka_hw franka_msgs geometry_msgs pluginlib realtime_tools roscpp sensor_msgs tf2_msgs

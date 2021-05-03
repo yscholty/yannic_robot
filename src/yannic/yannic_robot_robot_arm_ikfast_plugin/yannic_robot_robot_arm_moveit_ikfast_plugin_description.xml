@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<library path="lib/libyannic_robot_robot_arm_moveit_ikfast_plugin">
+  <class name="yannic_robot_robot_arm/IKFastKinematicsPlugin" type="yannic_robot_robot_arm::IKFastKinematicsPlugin" base_class_type="kinematics::KinematicsBase">
+    <description>IKFast61 plugin for closed-form kinematics of yannic_robot robot_arm</description>
+  </class>
+</library>

@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: yannic_robot
+    relative_path: urdf/yannic_robot.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/yannic_robot.srdf
+  CONFIG:
+    author_name: yannic
+    author_email: yscholty@gmail.com
+    generated_timestamp: 1619610658

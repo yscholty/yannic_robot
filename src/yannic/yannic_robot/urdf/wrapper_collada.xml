@@ -1,0 +1,6 @@
+<robot file="yannic_robot.dae">
+        <Manipulator name="NAME_OF_THE_ROBOT_IN_URDF">
+          <base>base_link</base>
+          <effector>dummy_gripper</effector>
+        </Manipulator>
+</robot>

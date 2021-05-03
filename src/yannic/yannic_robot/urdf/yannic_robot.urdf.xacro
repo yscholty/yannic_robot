@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<robot name="yannic_robot" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:property name="width" value="0.001" />
+  <xacro:property name="length" value="0.01" />
+  <xacro:property name="diam" value="0.07" />
+  
+  <xacro:property name="link1_length" value="0.182" />
+  <xacro:property name="link2_length" value="0.125" />
+  <xacro:property name="link3_length" value="0.054" />
+  <xacro:property name="dummy_length" value="0.013" />
+  <xacro:property name="eff_length" value="0.03" />
+
+
+   <material name="blue">
+	  <color rgba="0 0 0.8 1"/>
+   </material>
+   
+   
+   <material name="transparent">
+	  <color rgba="0 0 0 0"/>
+   </material>
+
+   <material name="green">
+      <color rgba="0.0 0.8 0.0 1.0"/>
+   </material>
+   
+   <material name="white">
+	<color rgba="1 1 1 1"/>
+   </material>
+ 
+ 
+ <xacro:macro name="default_inertial" params="mass">
+    <inertial>
+      <mass value="${mass}" />
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0" />
+    </inertial>
+  </xacro:macro>
+
+ <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.05 ${width}  ${length}"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.05 ${width}  ${length}"/>
+      </geometry>
+    </collision>
+  </link>
+
+   <joint name="rotate_base" type="revolute">
+     <axis xyz="1 0 0"/>
+     <limit effort="1000.0" lower="-1.57" upper="1.57" velocity="0.5"/>
+     <origin rpy="0 0 1.57" xyz="${width/2} 0 0"/>
+     <parent link="base_link"/>
+     <child link="dummy"/>
+   </joint>
+
+   <link name="dummy">
+   <visual>
+      <geometry>
+         <box size="${dummy_length} ${width}  ${length}"/>
+      </geometry>
+      <material name="white"/>
+      <origin rpy="0 0 0" xyz="${dummy_length/2} 0 0.0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${dummy_length} ${width}  ${length}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="10"/>
+   </link>
+   
+   
+   <joint name="joint1" type="revolute">
+     <axis xyz="0 0 1"/>
+     <limit effort="1000.0" lower="-${pi/4}" upper="${pi/4}" velocity="0.5"/>
+     <origin rpy="0 0 0" xyz="${dummy_length} 0 0"/>
+     <parent link="dummy"/>
+     <child link="link1"/>
+   </joint>
+   
+   <link name="link1">
+   <visual>
+      <geometry>
+         <box size="${link1_length} ${width}  ${length}"/>
+      </geometry>
+      <material name="blue"/>
+      <origin rpy="0 0 0" xyz="${link1_length/2} 0 0.0"/>
+    </visual>
+   <collision>
+      <geometry>
+        <box size="${link1_length} ${width}  ${length}"/>
+      </geometry>
+    </collision>
+   <xacro:default_inertial mass="10"/>
+   </link>
+   
+ 
+   <joint name="joint2" type="revolute">
+     <axis xyz="0 0 1"/>
+     <limit effort="1000.0" lower="${pi/4}" upper="${3*pi/4}" velocity="0.5"/>
+     <origin rpy="0 0 0" xyz="${link1_length} 0 0"/>
+     <parent link="link1"/>
+     <child link="link2"/>
+   </joint>
+   
+   <link name="link2">
+   <visual>
+      <geometry>
+         <box size="${link2_length} ${width}  ${length}"/>
+      </geometry>
+      <material name="green"/>
+      <origin rpy="0 0 0" xyz="${link2_length/2} 0 0.0"/>
+    </visual>
+   <collision>
+      <geometry>
+        <box size="${link2_length} ${width}  ${length}"/>
+      </geometry>
+    </collision>
+   <xacro:default_inertial mass="10"/>
+   </link>
+   
+   <joint name="joint3" type="revolute">
+     <axis xyz="0 0 1"/>
+     <limit effort="1000.0" lower="-${pi/2}" upper="${pi/2}" velocity="0.5"/>
+     <origin rpy="0 0 0" xyz="${link2_length} 0 0"/>
+     <parent link="link2"/>
+     <child link="link3"/>
+   </joint>
+   
+   <link name="link3">
+   <visual>
+      <geometry>
+         <box size="${link3_length} ${width}  ${length}"/>
+      </geometry>
+      <material name="blue"/>
+      <origin rpy="0 0 0" xyz="${link3_length/2} 0 0.0"/>
+    </visual>
+	    <collision>
+      <geometry>
+        <box size="${link3_length} ${width}  ${length}"/>
+      </geometry>
+    </collision>
+   <xacro:default_inertial mass="10"/>
+   </link>
+   
+  
+   <joint name="gripper_joint" type="prismatic">
+     <axis xyz="0 1 0"/>
+     <limit effort="1000.0" lower="0" upper="0.03" velocity="0.5"/>
+     <origin rpy="${pi/2} 0 0" xyz="${link3_length} 0 0"/>
+     <parent link="link3"/>
+     <child link="gripper"/>
+   </joint>
+   
+   <link name="gripper">
+   	<visual>
+      <geometry>
+         <box size="${eff_length} ${width}  ${length}"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="${eff_length/2} 0 0"/>
+      <material name="green"/>
+    </visual>
+	  <collision>
+      <geometry>
+        <box size="${eff_length} ${width}  ${length}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="0.5"/>
+   </link>
+   
+   <joint name="left_gripper" type="prismatic">
+     <axis xyz="0 1 0"/>
+     <limit effort="1000.0" lower="0" upper="0.03" velocity="0.5"/>
+     <origin rpy="-${pi/2} 0 0" xyz="${link3_length} 0 0"/>
+     <parent link="link3"/>
+     <child link="left_gripper"/>
+     <mimic joint="gripper_joint" multiplier="1" offset="0" />
+   </joint>
+   
+   <link name="left_gripper">
+   	<visual>
+      <geometry>
+         <box size="${eff_length} ${width}  ${length}"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="${eff_length/2} 0 0"/>
+      <material name="green"/>
+    </visual>
+	  <collision>
+      <geometry>
+        <box size="${eff_length} ${width}  ${length}"/>
+      </geometry>
+    </collision>
+    <xacro:default_inertial mass="0.5"/>
+   </link>
+   
+   
+
+</robot>

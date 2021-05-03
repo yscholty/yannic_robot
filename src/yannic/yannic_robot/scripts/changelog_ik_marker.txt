@@ -1,0 +1,6 @@
+Changes in ik_marker.py
+
+	- changed print to print() to transition to python3
+	- changed group from "arm" to "robot_arm"
+	- changed "eff" -> "link2" (probably has to be changed later)
+
