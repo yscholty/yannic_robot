@@ -9,8 +9,10 @@ yannic_robot:
    - joint2
    - joint3 
    - rotate_base
+   - gripper_joint
   gains:
    joint1: {p: 1000.0, i: 0.0, d: 0.1}
    joint2: {p: 1000.0, i: 0.0, d: 0.1}
    joint3: {p: 1000.0, i: 0.0, d: 0.1}
    rotate_base: {p: 1000.0, i: 0.0, d: 0.1}
+   gripper_joint: {p: 1000.0, i: 0.0, d: 0.1}

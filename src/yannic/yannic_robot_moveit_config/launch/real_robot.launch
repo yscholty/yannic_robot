@@ -1,3 +1,4 @@
+<?xml version="1.0"?>
 <launch>
 
   <rosparam file="$(find yannic_robot_moveit_config)/config/trajectory_control.yaml" command="load"/>

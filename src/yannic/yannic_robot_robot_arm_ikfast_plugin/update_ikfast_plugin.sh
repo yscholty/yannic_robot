@@ -6,7 +6,7 @@ robot_name=yannic_robot
 planning_group_name=robot_arm
 ikfast_plugin_pkg=yannic_robot_robot_arm_ikfast_plugin
 base_link_name=base_link
-eef_link_name=dummy_gripper
+eef_link_name=endeff
 ikfast_output_path=/home/yannic/yannic_master/src/yannic/yannic_robot_robot_arm_ikfast_plugin/src/yannic_robot_robot_arm_ikfast_solver.cpp
 
 rosrun moveit_kinematics create_ikfast_moveit_plugin.py\

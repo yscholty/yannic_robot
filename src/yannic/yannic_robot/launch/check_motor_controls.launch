@@ -27,6 +27,6 @@
             /yannic_robot/joint2
             /yannic_robot/joint3
             /yannic_robot/rotate_base
-            /yannic_robot/dummy_gripper_joint
+            /yannic_robot/gripper_joint            
         "/>
 </launch>

@@ -13,8 +13,7 @@ hardware_interface:
     - joint1
     - joint2
     - joint3
-    - left_gripper
-    - right_gripper
+    - gripper_joint
   sim_control_mode: 1  # 0: position, 1: velocity
 # Publish all joint states
 # Creates the /joint_states topic necessary in ROS
@@ -30,7 +29,7 @@ joint_control:
     - joint1
     - joint2
     - joint3
-    - joint4
+    - gripper_joint
   gains:
     rotate_base:
       p: 100
@@ -52,4 +51,8 @@ joint_control:
       d: 1
       i: 1
       i_clamp: 1
-
+    gripper_joint:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1

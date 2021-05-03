@@ -34,11 +34,11 @@ class ROBOTHardwareInterface : public hardware_interface::RobotHW
         joint_limits_interface::PositionJointSoftLimitsInterface positionJointSoftLimitsInterface;
         
         int num_joints_;
-        std::string joint_names_[4];  
-        double joint_position_[4];
-        double joint_velocity_[4];
-        double joint_effort_[4];
-        double joint_position_command_[4];
+        std::string joint_names_[5];  
+        double joint_position_[5];
+        double joint_velocity_[5];
+        double joint_effort_[5];
+        double joint_position_command_[5];
         
         ros::NodeHandle nh_;
         ros::Timer non_realtime_loop_;

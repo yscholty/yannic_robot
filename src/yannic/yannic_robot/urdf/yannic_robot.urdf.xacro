@@ -200,5 +200,26 @@
    </link>
    
    
+   <joint name="endeff_joint" type="fixed">
+     <origin rpy="0 0 0" xyz="${link3_length} 0 0"/>
+     <parent link="link3"/>
+     <child link="endeff"/>
+   </joint>
+   
+   <link name="endeff">
+   <visual>
+      <geometry>
+         <box size="0.0001 ${width}  ${length}"/>
+      </geometry>
+      <material name="transparent"/>
+      <origin rpy="0 0 0" xyz="${0.0001/2} 0 0.0"/>
+    </visual>
+	    <collision>
+      <geometry>
+        <box size="0.0001 ${width}  ${length}"/>
+      </geometry>
+    </collision>
+   <xacro:default_inertial mass="0.01"/>
+   </link>
 
 </robot>

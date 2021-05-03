@@ -21,3 +21,7 @@ yannic_robot:
       type: position_controllers/JointPositionController
       joint: rotate_base
       pid: {p: 1.0, i: 1.0, d: 0.0}
+    gripper_joint:
+      type: position_controllers/JointPositionController
+      joint: gripper_joint
+      pid: {p: 1.0, i: 1.0, d: 0.0}
