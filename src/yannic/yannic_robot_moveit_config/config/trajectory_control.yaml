@@ -2,7 +2,7 @@ yannic_robot:
  joint_state_controller:
   type: joint_state_controller/JointStateController
   publish_rate: 50
- arm_joint_controller:
+ robot_arm_joint_controller:
   type: "position_controllers/JointTrajectoryController"
   joints:
    - joint1

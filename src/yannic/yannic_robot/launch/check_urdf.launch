@@ -1,4 +1,4 @@
-
+<?xml version="1.0"?>
 <launch>
 
   <arg name="model" default="$(find yannic_robot)/urdf/yannic_robot.urdf.xacro"/>

@@ -23,7 +23,7 @@
   
 
   <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="/yannic_robot/arm_joint_controller"/>
+    output="screen" args="/yannic_robot/robot_arm_joint_controller"/>
 
  
 

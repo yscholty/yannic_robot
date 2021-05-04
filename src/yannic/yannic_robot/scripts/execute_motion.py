@@ -35,8 +35,8 @@ group = moveit_commander.MoveGroupCommander(group_name)
 listener=tf.TransformListener()
 listener.waitForTransform('/eff','/link1',rospy.Time(), rospy.Duration(1.0))
 print listener.frameExists('link1')
-print listener.frameExists('eff')
-(trans,rot)=listener.lookupTransform('link1','eff',rospy.Time())
+print listener.frameExists('endeff')
+(trans,rot)=listener.lookupTransform('link1','endeff',rospy.Time())
 print trans,rot
 
 
