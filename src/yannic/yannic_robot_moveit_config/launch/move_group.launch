@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <launch>
 
+  <include file="$(find yannic_robot_moveit_config)/launch/planning_context.launch" />
+
+
   <!-- GDB Debug Option -->
   <arg name="debug" default="false" />
   <arg unless="$(arg debug)" name="launch_prefix" value="" />
@@ -43,31 +46,11 @@
   <include file="$(find yannic_robot_moveit_config)/launch/planning_context.launch">
     <arg name="load_robot_description" value="$(arg load_robot_description)" />
   </include>
-
-  <!-- Planning Pipelines -->
-  <group ns="move_group/planning_pipelines">
-
-    <!-- OMPL -->
-    <include ns="ompl" file="$(find yannic_robot_moveit_config)/launch/planning_pipeline.launch.xml">
-      <arg name="pipeline" value="ompl" />
-    </include>
-
-    <!-- CHOMP -->
-    <include ns="chomp" file="$(find yannic_robot_moveit_config)/launch/planning_pipeline.launch.xml">
-      <arg name="pipeline" value="chomp" />
-    </include>
-
-    <!-- Pilz Industrial Motion-->
-    <include ns="pilz_industrial_motion_planner" file="$(find moveit_resources_prbt_moveit_config)/launch/planning_pipeline.launch.xml">
-      <arg name="pipeline" value="pilz_industrial_motion_planner" />
-    </include>
-
-    <!-- Support custom planning pipeline -->
-    <include if="$(eval arg('pipeline') not in ['ompl', 'chomp', 'pilz_industrial_motion_planner'])"
-	     file="$(find yannic_robot_moveit_config)/launch/planning_pipeline.launch.xml">
-      <arg name="pipeline" value="$(arg pipeline)" />
-    </include>
-  </group>
+  
+  <!-- Planning Functionality -->
+  <include ns="move_group" file="$(find yannic_robot_moveit_config)/launch/planning_pipeline.launch.xml">
+    <arg name="pipeline" value="ompl" />
+  </include>
 
   <!-- Trajectory Execution Functionality -->
   <include ns="move_group" file="$(find yannic_robot_moveit_config)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
