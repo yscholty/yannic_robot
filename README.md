@@ -17,4 +17,10 @@ position: [-1.5707963267948966, -0.6981270402658242, -1.5707963267948966, -1.570
 velocity: [0.0, 1e-323, -7e-323, 0.0, 0.0]
 effort: [-7e-323, 0.0, 0.0, 0.0, 1e-323]
 
-where only the entry for joint1 is variable when I move the servo connected to A0. the other values stay as they are.
+where only the entry for joint1 is variable when I move the servo connected to A0. the other values stay as they are. Joint2 now sometimes goes to negative infinity
+
+new bug: ros.controller_manager: Could not load controller '/yannic_robot/robot_arm_joint_controller' because controller type 'position_controllers/JointTrajectoryController' does not exist.
+ros.controller_manager: Use 'rosservice call controller_manager/list_controller_types' to get the available types
+
+Now joint2 and joint3 are mostly nan. 
+still only one joint moving. the other ones at nan. I think the problem yields from the Arduino. Try a new board? Tra a bigger board? due for example because when checking rosservice call 1, then we already get the nan
