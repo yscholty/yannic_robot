@@ -65,7 +65,7 @@ void ROBOTHardwareInterface::read() {
 		joint_position_[3]=angles::from_degrees(joint_read.response.res[3]-90);
 		joint_position_[4]=angles::from_degrees(joint_read.response.res[4]-90);
 		
-		//ROS_INFO("Receiving  j1: %.2f, j2: %.2f, j3: %.2f", j4: %.2f,joint_read.response.res[0],joint_read.response.res[1], joint_read.response.res[2] , joint_read.response.res[3]);
+		ROS_INFO("Receiving  j1: %.2f, j2: %.2f, j3: %.2f, j4: %.2f,j5: %.2f",joint_read.response.res[0],joint_read.response.res[1], joint_read.response.res[2] , joint_read.response.res[3],joint_read.response.res[4]);
 		
 	}	
     else

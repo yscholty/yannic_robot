@@ -166,17 +166,17 @@ void callback(const yannic_robot::Floats_array::Request & req, yannic_robot::Flo
   // Simulate function running for a non-deterministic amount of time
   
 
-  res.res_length=4;
+  res.res_length=5;
   readservo1=analogRead(A0);
-  readservo2=analogRead(A1);
-  readservo3=analogRead(A2);
-  readservo4=analogRead(A3);
-  //readservo5=analogRead(A4);
   res.res[0]=(readservo1-90) * (180.0/270.0);
+  readservo2=analogRead(A1);
   res.res[1]=(readservo2-90) * (180.0/270.0);
+  readservo3=analogRead(A2);
   res.res[2]=(readservo3-90) * (180.0/270.0);  
+  readservo4=analogRead(A3);
   res.res[3]=(readservo4-90) * (180.0/270.0);  //to be determined
-  //res.res[4]=(readservo5-90) * (180.0/270.0); 
+  readservo5=analogRead(A4);
+  res.res[4]=(readservo5-90) * (180.0/270.0); 
   return;
   
 }
