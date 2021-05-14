@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /MotionPlanning1
+        - /MotionPlanning1/Planning Request1
       Splitter Ratio: 0.7425600290298462
     Tree Height: 383
   - Class: rviz/Help
@@ -134,7 +135,7 @@ Visualization Manager:
         Goal State Color: 250; 128; 0
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
-        Planning Group: hand
+        Planning Group: robot_arm
         Query Goal State: true
         Query Start State: false
         Show Workspace: false
@@ -274,7 +275,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 2.996500015258789
+      Distance: 0.8093498945236206
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -290,9 +291,9 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.5097969770431519
+      Pitch: 0.4697970151901245
       Target Frame: base_link
-      Yaw: 5.659949779510498
+      Yaw: 5.834950923919678
     Saved: ~
 Window Geometry:
   Displays:

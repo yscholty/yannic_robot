@@ -1,1 +1,3 @@
-changed three_dof_planar_manipulator to yannic_robot
+yannic_robot:
+
+check_motor_control.launch works if message published to yannic_robot/joint1/command

@@ -4,7 +4,7 @@
 ROBOTHardwareInterface::ROBOTHardwareInterface(ros::NodeHandle& nh) : nh_(nh) {
     init();
     controller_manager_.reset(new controller_manager::ControllerManager(this, nh_));
-    loop_hz_=20;
+    loop_hz_=5;
     ros::Duration update_freq = ros::Duration(1.0/loop_hz_);
 	
 	/* nodes defined in the Arduino code */
@@ -23,7 +23,6 @@ void ROBOTHardwareInterface::init() {
 	joint_names_[0]="joint1";	
 	joint_names_[1]="joint2";
 	joint_names_[2]="joint3";
-	/* added joint4 */
 	joint_names_[3]="rotate_base";
 	joint_names_[4]="gripper_joint";
 	
@@ -61,7 +60,6 @@ void ROBOTHardwareInterface::read() {
 		joint_position_[0]=angles::from_degrees(joint_read.response.res[0]-90);
 		joint_position_[1]=angles::from_degrees(joint_read.response.res[1]-90);
 		joint_position_[2]=angles::from_degrees(joint_read.response.res[2]-90);
-		/* added joint4 */
 		joint_position_[3]=angles::from_degrees(joint_read.response.res[3]-90);
 		joint_position_[4]=angles::from_degrees(joint_read.response.res[4]-90);
 		
