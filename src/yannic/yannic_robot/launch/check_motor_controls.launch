@@ -1,29 +1,25 @@
 <?xml version="1.0"?>
 <launch>
-    
-  <rosparam file="$(find yannic_robot)/config/controllers.yaml" command="load"/>
    
+   <!-- upload urdf.xacro and convert to urdf-->
    <arg name="model" default="$(find yannic_robot)/urdf/yannic_robot.urdf.xacro"/>
   <arg name="gui" default="true" /> 
+  <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
+  
+  
+  
+<!-- Combine joint values -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
 
-  <arg name="rvizconfig" default="$(find yannic_robot)/rviz/urdf.rviz" />
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" required="true" />
+<!-- Rviz environment setup -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find yannic_robot)/rviz/urdf.rviz" />
 
- <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
-  <param name="use_gui" value="$(arg gui)"/> 
-
-  <node name="robot_hardware_interface" pkg="yannic_robot" type="robot_hardware_interface" output="screen"/> 
-
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
-  </node>
+ 
+<!-- send joint values to the hardware -->  
+  <arg name="use_gui" default="true" doc="Use GUI to control joint_states?" />
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen" unless="$(arg use_gui)" />
+  <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui" output="screen" if="$(arg use_gui)" />
     
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen"
-        args="
-            /yannic_robot/joints_update
-            /yannic_robot/joint1
-            /yannic_robot/joint2
-            /yannic_robot/joint3
-            /yannic_robot/rotate_base
-            /yannic_robot/gripper_joint            
-        "/>
 </launch>
+
+

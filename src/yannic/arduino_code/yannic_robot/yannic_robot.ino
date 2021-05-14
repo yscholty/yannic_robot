@@ -10,27 +10,34 @@
 #include <sensor_msgs/JointState.h>
 
 ros::NodeHandle  nh;
-Servo base;
+Servo rotate_base;
 Servo joint1;
 Servo joint2;
 Servo joint3;
-Servo gripper;
+Servo gripper_joint;
 
-double base_angle;
-double joint1_angle;
-double joint2_angle;
-double joint3_angle;
+double rotate_base_angle = 0;
+double joint1_angle = 0;
+double joint2_angle = 0;
+double joint3_angle = 0;
+double gripper_joint_angle = 0;
 
 // function call -> processing joint_states and controlling servos
 void servo_cb(const sensor_msgs::JointState& cmd_msg){
-  //position in Radians
-base_angle = cmd_msg.position[0];
-joint1_angle = cmd_msg.position[1];
-joint2_angle = cmd_msg.position[2];
-joint3_angle = cmd_msg.position[3];
+//get the values from joint_states topic
+rotate_base_angle = radiansToDegrees(cmd_msg.position[0]);
+joint1_angle = radiansToDegrees(cmd_msg.position[1]);
+joint2_angle = radiansToDegrees(cmd_msg.position[2]);
+joint3_angle = radiansToDegrees(cmd_msg.position[3]);
+gripper_joint_angle = radiansToDegrees(50*cmd_msg.position[4]);
 
-// routine to prevent critical positions for the servos -> to be done
-  
+
+//write the values from joint_states to the connected Servos
+rotate_base.write(rotate_base_angle);
+joint1.write(joint1_angle);
+joint2.write(joint2_angle);
+joint3.write(joint3_angle);
+gripper_joint.write(gripper_joint_angle);
 }
 
 
@@ -44,21 +51,31 @@ void setup() {
   nh.subscribe(sub);
 
 //Define the servos for the joints
-  base.attach(8);
+  rotate_base.attach(8);
   joint1.attach(9); 
   joint2.attach(10);
   joint3.attach(11);
-  gripper.attach(12); 
+  gripper_joint.attach(12); 
 
   delay(1);
-  base.write(90);
+  rotate_base.write(90);
   joint1.write(90);
   joint2.write(90);
   joint3.write(90);
-  gripper.write(0);
+  gripper_joint.write(0);
 
 }
 
 void loop() {
   nh.spinOnce();
+}
+
+// convert the radians to degree angles for the servo
+double radiansToDegrees(float position_radians)
+{
+
+  position_radians = position_radians + 1.57;  //shift by 1.57 at least to only have positive values
+
+  return position_radians * 57.2958;
+
 }

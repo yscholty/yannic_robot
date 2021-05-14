@@ -16,6 +16,7 @@
         <joint name="joint3"/>
         <joint name="virtual_joint"/>
         <joint name="endeff_joint"/>
+        
     </group>
     <group name="hand">
         <link name="left_gripper"/>
@@ -29,6 +30,7 @@
         <joint name="joint2" value="1.6531"/>
         <joint name="joint3" value="0.5988"/>
         <joint name="rotate_base" value="0.1301"/>
+        
     </group_state>
     <group_state name="hand_open" group="hand">
         <joint name="gripper_joint" value="0.03"/>
