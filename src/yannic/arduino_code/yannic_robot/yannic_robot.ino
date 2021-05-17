@@ -8,6 +8,7 @@
 #include <ros.h>
 #include <std_msgs/UInt16.h>
 #include <sensor_msgs/JointState.h>
+#include <std_msgs/String.h>
 
 ros::NodeHandle  nh;
 Servo rotate_base;
@@ -44,11 +45,21 @@ gripper_joint.write(gripper_joint_angle);
 //set up the ROS node -> servo_cb is subscriber for joint_states
 ros::Subscriber<sensor_msgs::JointState> sub("joint_states", servo_cb);
 
+sensor_msgs::JointState robot_state;
+ros::Publisher pub("joint_feedback", &robot_state);
+
+char robot_id = "arm";
+char *joint_name[3] = {"joint_01", "joint_02", "joint_03"};//, "joint_04", "joint_05", "joint_06"};
+float pos[3];
+float vel[3];
+float eff[3];
+
 
 void setup() {
   nh.getHardware()->setBaud(115200);
   nh.initNode();
   nh.subscribe(sub);
+  nh.advertise(pub);
 
 //Define the servos for the joints
   rotate_base.attach(8);
@@ -64,10 +75,33 @@ void setup() {
   joint3.write(90);
   gripper_joint.write(0);
 
+ 
+ 
+
 }
 
 void loop() {
+  // Fulfill the sensor_msg/JointState msg
+  robot_state.name_length = 3;
+  robot_state.velocity_length = 3;
+  robot_state.position_length = 3;
+  robot_state.effort_length = 3;
+
+  pos[0] = analogRead(A0);
+  pos[1] = analogRead(A1);
+  pos[2] = analogRead(A2);
+  //pos[3] = analogRead(A3);
+
+  robot_state.header.stamp = nh.now();
+  robot_state.header.frame_id = robot_id;
+  robot_state.name = joint_name;
+  robot_state.position = pos;
+  robot_state.velocity = vel;
+  robot_state.effort = eff;
+  
+  pub.publish( &robot_state);
   nh.spinOnce();
+  delay(20);
 }
 
 // convert the radians to degree angles for the servo
