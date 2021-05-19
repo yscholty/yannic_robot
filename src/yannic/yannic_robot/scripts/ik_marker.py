@@ -22,6 +22,7 @@ viapoints=[]
 viapoints_marker=MarkerArray()
 count =0
 
+# menu_entry_id is the context menu for right click
 def processFeedback(feedback):
     print('+++++++++++',feedback.menu_entry_id,'+++++++++++++++++++++')
 
@@ -37,8 +38,8 @@ def processFeedback(feedback):
             	
             
         elif feedback.menu_entry_id==2:
-            listener.waitForTransform('/eff','/link1',rospy.Time(), rospy.Duration(1.0))
-            (trans,rot)=listener.lookupTransform('link1','eff',rospy.Time())
+            listener.waitForTransform('/endeff','/base_link',rospy.Time(), rospy.Duration(1.0))
+            (trans,rot)=listener.lookupTransform('base_link','endeff',rospy.Time())
             print(trans,rot)
   
             feedback.pose.position.x=trans[0]
@@ -54,7 +55,7 @@ def processFeedback(feedback):
             viapoints.append(feedback.pose)
             print('Count: ',len(viapoints))
             marker= Marker()
-            marker.header.frame_id = "link1"
+            marker.header.frame_id = "base_link"
             marker.type=Marker.SPHERE
             marker.action=marker.ADD
             marker.scale.x=0.005
@@ -123,16 +124,16 @@ if __name__=="__main__":
 
 	# create an interactive marker for our server
 
-	int_marker.header.frame_id = "link1"
+	int_marker.header.frame_id = "base_link"
 	int_marker.name = "my_marker"
 	int_marker.description = "Simple 1-DOF Control"
 	int_marker.scale=0.05
 
 
-	listener.waitForTransform('/link2','/link1',rospy.Time(), rospy.Duration(1.0))
-	print(listener.frameExists('link1'))
+	listener.waitForTransform('/link2','/base_link',rospy.Time(), rospy.Duration(1.0))
+	print(listener.frameExists('base_link'))
 	print(listener.frameExists('link2'))
-	(trans,rot)=listener.lookupTransform('link1','link2',rospy.Time())
+	(trans,rot)=listener.lookupTransform('base_link','link2',rospy.Time())
 	print(trans,rot)
 
 	int_marker.pose.position.x=trans[0]

@@ -29,15 +29,15 @@ rospy.init_node('subscriber_py') #initialzing the node with name "subscriber_py"
 moveit_commander.roscpp_initialize(sys.argv)
 robot = moveit_commander.RobotCommander()
 scene = moveit_commander.PlanningSceneInterface()
-group_name = "arm"
+group_name = "robot_arm"
 group = moveit_commander.MoveGroupCommander(group_name)
 
 listener=tf.TransformListener()
-listener.waitForTransform('/eff','/link1',rospy.Time(), rospy.Duration(1.0))
-print listener.frameExists('link1')
-print listener.frameExists('endeff')
+listener.waitForTransform('/endeff','/link1',rospy.Time(), rospy.Duration(1.0))
+print(listener.frameExists('link1'))
+print(listener.frameExists('endeff'))
 (trans,rot)=listener.lookupTransform('link1','endeff',rospy.Time())
-print trans,rot
+print(trans,rot)
 
 
 rospy.Subscriber("follow_blob", Pose, my_callback, queue_size=10) 

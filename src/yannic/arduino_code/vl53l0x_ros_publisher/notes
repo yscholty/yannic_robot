@@ -1,0 +1,14 @@
+  //reading the analog values and saving them to the later on published topic
+  pos[0] = analogRead(A0);
+  pos[1] = analogRead(A1);
+  pos[2] = analogRead(A2);
+  pos[3] = analogRead(A3);
+  pos[4] = analogRead(A4);
+  pos[5] = analogRead(A5);
+
+  robot_state.header.stamp = nh.now();
+  robot_state.position = pos;
+  //robot_state.velocity = vel;
+  //robot_state.effort = eff;
+  pub.publish( &robot_state);
+  
