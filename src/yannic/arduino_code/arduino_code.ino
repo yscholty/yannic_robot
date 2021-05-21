@@ -13,6 +13,8 @@ ros::NodeHandle  nh;
 int cur_pos[5]={0,0,0,0,0};
 
 Servo servo1,servo2,servo3,servo4,servo5;
+unsigned long t;
+
 
 float readservo1=0,readservo2=0,readservo3=0,readservo4=0,readservo5=0;
 
@@ -163,8 +165,7 @@ void servo_cb( const rospy_tutorials::Floats& cmd_msg){
 
 void callback(const yannic_robot::Floats_array::Request & req, yannic_robot::Floats_array::Response & res)
 {
-  // Simulate function running for a non-deterministic amount of time
-  
+
   res.res_length=5;
   readservo1=analogRead(A0);
   res.res[0]=(readservo1-90) * (180.0/270.0);
@@ -180,6 +181,8 @@ void callback(const yannic_robot::Floats_array::Request & req, yannic_robot::Flo
   
   readservo5=analogRead(A4);
   res.res[4]=(readservo5-90) * (180.0/270.0); 
+
+  
   
   return;
  }
@@ -192,7 +195,7 @@ ros::ServiceServer<yannic_robot::Floats_array::Request, yannic_robot::Floats_arr
 
 void setup(){
 
-  nh.getHardware()->setBaud(115200);
+  nh.getHardware()->setBaud(250000);
   nh.initNode();
   nh.subscribe(sub);
   nh.advertiseService(server);

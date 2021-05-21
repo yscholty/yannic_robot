@@ -24,13 +24,13 @@
   It also provides a GUI to move the simulated robot around "manually".
   This corresponds to moving around the real robot without the use of MoveIt.
   -->
-  <arg name="use_gui" default="true" />
+  <arg name="use_gui" default="false" />
   <arg name="use_rviz" default="true" />
 
   <!-- If needed, broadcast static tf for robot root -->
 
 
-  <!-- We do not have a robot connected, so publish fake joint states. If we want to use real motor feedback, we have to write a hardware_interface to enable ros_control -->
+  <!-- We do not have a robot connected, so publish fake joint states -->
   <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" unless="$(arg use_gui)">
     <rosparam param="source_list">[move_group/fake_controller_joint_states]</rosparam>
   </node>
@@ -38,9 +38,20 @@
     <rosparam param="source_list">[move_group/fake_controller_joint_states]</rosparam>
   </node>
   
+  
+  <!--....................Controllers........... -->
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find yannic_robot_moveit_config)/config/controllers.yaml" command="load"/>
+	
+  <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/yannic_robot" args="robot_arm_joint_controller joint_state_controller"/>
+  <!-- ......................................... -->
+  
 
   <!-- Given the published joint states, publish tf for the robot links -->
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+  <remap from="/joint_states" to="/yannic_robot/joint_states" />
+  </node>
 
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
   <include file="$(find yannic_robot_moveit_config)/launch/move_group.launch">
@@ -61,15 +72,5 @@
   <include file="$(find yannic_robot_moveit_config)/launch/default_warehouse_db.launch" if="$(arg db)">
     <arg name="moveit_warehouse_database_path" value="$(arg db_path)"/>
   </include>
-  
-<!-- rosserial -->
-  <node name="serial_node"        pkg="rosserial_python"      type="serial_node.py">
-    <param name="port"              type="string"               value="/dev/ttyACM0"/>
-    <param name="baud"              type="int"                  value="250000"/>
-    </node>
 
-    
-   <node name="ik_marker" pkg="yannic_robot" type="ik_marker.py" output="screen"  >
-  </node>
-  
 </launch>

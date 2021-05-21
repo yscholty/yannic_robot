@@ -1,14 +1,16 @@
 #include <yannic_robot/robot_hardware_interface.h>
+#include "std_msgs/Int32MultiArray.h"
 
 
 ROBOTHardwareInterface::ROBOTHardwareInterface(ros::NodeHandle& nh) : nh_(nh) {
     init();
     controller_manager_.reset(new controller_manager::ControllerManager(this, nh_));
-    loop_hz_=5;
+    loop_hz_=10;
     ros::Duration update_freq = ros::Duration(1.0/loop_hz_);
 	
 	/* nodes defined in the Arduino code */
 	pub = nh_.advertise<rospy_tutorials::Floats>("/joints_to_arduino",10);
+	pub_states = nh_.advertise<std_msgs::Int32MultiArray>("/read_joint_state",10);
 	client = nh_.serviceClient<yannic_robot::Floats_array>("/read_joint_state");
 	
     non_realtime_loop_ = nh_.createTimer(update_freq, &ROBOTHardwareInterface::update, this);
@@ -19,7 +21,7 @@ ROBOTHardwareInterface::~ROBOTHardwareInterface() {
 
 void ROBOTHardwareInterface::init() {
     
-    num_joints_=5;
+    num_joints_= 5;
 	joint_names_[0]="joint1";	
 	joint_names_[1]="joint2";
 	joint_names_[2]="joint3";
@@ -65,6 +67,8 @@ void ROBOTHardwareInterface::read() {
 		
 		ROS_INFO("Receiving  j1: %.2f, j2: %.2f, j3: %.2f, j4: %.2f,j5: %.2f",joint_read.response.res[0],joint_read.response.res[1], joint_read.response.res[2] , joint_read.response.res[3],joint_read.response.res[4]);
 		
+		
+		
 	}	
     else
     {
@@ -73,10 +77,11 @@ void ROBOTHardwareInterface::read() {
         joint_position_[2]=0;
         joint_position_[3]=0;
         joint_position_[4]=0;
-        //ROS_INFO("Service not found ");
+        ROS_INFO("Service not found ");
     }
         
 
+	//pub_states.publish(joint_position_);
 }
 
 void ROBOTHardwareInterface::write(ros::Duration elapsed_time) {

@@ -22,6 +22,9 @@ class ROBOTHardwareInterface : public hardware_interface::RobotHW
         void read();
         void write(ros::Duration elapsed_time);
         ros::Publisher pub;
+        
+        ros:: Publisher pub_states;
+        
         ros::ServiceClient client;
         rospy_tutorials::Floats joints_pub;
         yannic_robot::Floats_array joint_read;

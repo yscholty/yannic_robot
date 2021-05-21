@@ -24,24 +24,24 @@ count =0
 
 # menu_entry_id is the context menu for right click
 def processFeedback(feedback):
+	#indents are off -> use 4x space for indent
     print('+++++++++++',feedback.menu_entry_id,'+++++++++++++++++++++')
-
-
+    print(feedback.pose.position)
     if feedback.event_type == InteractiveMarkerFeedback.MENU_SELECT:
         if feedback.menu_entry_id==1:
+		    
             group.set_position_target([feedback.pose.position.x,feedback.pose.position.y,feedback.pose.position.z])
             #group.set_pose_target(feedback.pose) #give for 6 or more dof arms
             plan = group.go(wait=True)
             group.stop()
             group.clear_pose_targets()
             #pub.publish(feedback.pose)
-            	
-            
+  
         elif feedback.menu_entry_id==2:
             listener.waitForTransform('/endeff','/base_link',rospy.Time(), rospy.Duration(1.0))
             (trans,rot)=listener.lookupTransform('base_link','endeff',rospy.Time())
             print(trans,rot)
-  
+			
             feedback.pose.position.x=trans[0]
             feedback.pose.position.y=trans[1]
             feedback.pose.position.z=trans[2]
@@ -99,11 +99,12 @@ def processFeedback(feedback):
             else:
                 print('No via points set')
         
-            
+
     server.applyChanges()
+    	
 
 if __name__=="__main__":
-
+	
 	rospy.init_node("simple_marker")
 	int_marker = InteractiveMarker()
 	menu_handler = MenuHandler()
@@ -130,10 +131,10 @@ if __name__=="__main__":
 	int_marker.scale=0.05
 
 
-	listener.waitForTransform('/link2','/base_link',rospy.Time(), rospy.Duration(1.0))
+	listener.waitForTransform('/endeff','/base_link',rospy.Time(), rospy.Duration(1.0))
 	print(listener.frameExists('base_link'))
-	print(listener.frameExists('link2'))
-	(trans,rot)=listener.lookupTransform('base_link','link2',rospy.Time())
+	print(listener.frameExists('endeff'))
+	(trans,rot)=listener.lookupTransform('base_link','endeff',rospy.Time())
 	print(trans,rot)
 
 	int_marker.pose.position.x=trans[0]
@@ -143,6 +144,8 @@ if __name__=="__main__":
 	int_marker.pose.orientation.y=rot[1]
 	int_marker.pose.orientation.z=rot[2]
 	int_marker.pose.orientation.w=rot[3]
+	
+
 	
 	marker= Marker()
 	marker.type=Marker.SPHERE
@@ -155,12 +158,8 @@ if __name__=="__main__":
 	marker.color.a=1.0
 	
 	rotate_control = InteractiveMarkerControl()
-	rotate_control.orientation.w=1
-	rotate_control.orientation.x=0
-	rotate_control.orientation.y=1
-	rotate_control.orientation.z=0
 	rotate_control.name = "moving"
-	rotate_control.interaction_mode = InteractiveMarkerControl.MOVE_PLANE
+	rotate_control.interaction_mode = InteractiveMarkerControl.MOVE_3D
 	rotate_control.always_visible = True
 	rotate_control.markers.append(marker)
 	
