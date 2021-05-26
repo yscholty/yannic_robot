@@ -13,6 +13,8 @@
   <param name="$(arg robot_description)_semantic" textfile="$(find yannic_robot_moveit_config)/config/yannic_robot.srdf" />
 
 
+ <param name="hallo" value="Hello" />
+
   <!-- Load updated joint limits (override information from URDF) -->
   <group ns="$(arg robot_description)_planning">
     <rosparam command="load" file="$(find yannic_robot_moveit_config)/config/joint_limits.yaml"/>

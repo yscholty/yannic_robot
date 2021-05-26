@@ -79,6 +79,7 @@ void setup() {
   while (!nh.connected() ){
     nh.spinOnce();
 }
+sensor.begin();
 // if initialization failed - write message and freeze -> crucial for code run??
   if (!sensor.begin()) {
     nh.logwarn("Failed to setup VL53L0X sensor");
@@ -133,7 +134,7 @@ void loop() {
         range_msg.range = (float)measure.RangeMilliMeter/1000.0f; // convert mm to m
         range_msg.header.stamp = nh.now();
         pub_range.publish(&range_msg);
-        nh.loginfo("reading_data");
+        //nh.loginfo("reading_data");
     } else {
       nh.logwarn("Out of range"); // if out of range, don't send message
     }

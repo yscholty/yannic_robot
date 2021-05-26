@@ -69,7 +69,7 @@
     </node>
 
     
-   <node name="ik_marker" pkg="yannic_robot" type="ik_marker.py" output="screen"  >
+   <node name="yannic_robot_execute" pkg="yannic_robot" type="yannic_robot_marker_range.py" output="screen"  >
   </node>
   
 </launch>

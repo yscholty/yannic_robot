@@ -10,12 +10,25 @@ import geometry_msgs.msg
 from math import pi
 from std_msgs.msg import String
 from moveit_commander.conversions import pose_to_list
-from geometry_msgs.msg import Pose
 
 from interactive_markers.interactive_marker_server import *
 from interactive_markers.menu_handler import *
 from visualization_msgs.msg import *
 from geometry_msgs.msg import Pose
+from std_msgs.msg import Float32
+
+
+#import the messages that publish to the range_data topic
+from sensor_msgs.msg import Range
+
+rangedata = []
+
+def callback(data):
+	global rangedata
+	rangedata = data.range
+	rospy.loginfo(rangedata)
+    
+
 
 viapoints=[]
 
@@ -29,13 +42,12 @@ def processFeedback(feedback):
     print(feedback.pose.position)
     if feedback.event_type == InteractiveMarkerFeedback.MENU_SELECT:
         if feedback.menu_entry_id==1:
-		    
-            group.set_position_target([feedback.pose.position.x,feedback.pose.position.y,feedback.pose.position.z])
-            #group.set_pose_target(feedback.pose) #give for 6 or more dof arms
-            plan = group.go(wait=True)
-            group.stop()
-            group.clear_pose_targets()
-            #pub.publish(feedback.pose)
+	        goal_position.publish(feedback.pose)
+        	group.set_position_target([feedback.pose.position.x,feedback.pose.position.y,feedback.pose.position.z])
+        	plan = group.go(wait=True)
+        	group.stop()
+        	group.clear_pose_targets()
+            
   
         elif feedback.menu_entry_id==2:
             listener.waitForTransform('/endeff','/base_link',rospy.Time(), rospy.Duration(1.0))
@@ -101,11 +113,17 @@ def processFeedback(feedback):
         
 
     server.applyChanges()
-    	
+    
+  
 
 if __name__=="__main__":
-	
 	rospy.init_node("simple_marker")
+	
+	rospy.Subscriber("range_data", Range, callback)
+	print(rangedata)
+	# goal position for the marker
+	goal_position = rospy.Publisher('/goal_position',Pose,queue_size=20,latch=True)
+
 	int_marker = InteractiveMarker()
 	menu_handler = MenuHandler()
 	listener=tf.TransformListener()
