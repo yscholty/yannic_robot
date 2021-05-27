@@ -1,26 +1,22 @@
 # yannic_robot
 4DOF Robot Arm with ROS noetic
 
-control 5 joints trhough Moveit and ROS.
+control 5 joints through Moveit and ROS.
 
 IKFast solution is still only Translation3D - might need to write own IK Plugin
 
-When running "roslaunch yannic_robot check_motor.launch" and initiating the communication wih the rosserial, only the joint1 can be moved. Output from it would for example be:
-name: 
-  - gripper_joint
-  - joint1
-  - joint2
-  - joint3
-  - rotate_base
-  - 
-position: [-1.5707963267948966, -0.6981270402658242, -1.5707963267948966, -1.5707963267948966, -1.5707963267948966]
-velocity: [0.0, 1e-323, -7e-323, 0.0, 0.0]
-effort: [-7e-323, 0.0, 0.0, 0.0, 1e-323]
+Startup: ->
+source ~/yannic_master/devel/setup.bash
+roslaunch yannic_robot_moveit_config demo.launch
 
-where only the entry for joint1 is variable when I move the servo connected to A0. the other values stay as they are. Joint2 now sometimes goes to negative infinity
+"go to scripts in yannic_robot" ->
+./yannic_test.py
+"new terminal" ->
+./test.py
 
-new bug: ros.controller_manager: Could not load controller '/yannic_robot/robot_arm_joint_controller' because controller type 'position_controllers/JointTrajectoryController' does not exist.
-ros.controller_manager: Use 'rosservice call controller_manager/list_controller_types' to get the available types
+--------->> robot stops when distance threshold is reached and motion will be resumed after clearing the space again
 
-Now joint2 and joint3 are mostly nan. 
-still only one joint moving. the other ones at nan. I think the problem yields from the Arduino. Try a new board? Tra a bigger board? due for example because when checking rosservice call 1, then we already get the nan
+
+ToDO:
+still no feedback from servos but fake_joint_states
+edit velocity of the robot motions using the distance sensors
