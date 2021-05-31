@@ -16,7 +16,7 @@ import time
 
 
 
-threshold = 0.06
+threshold = 0.12
     
 rangedata = 1.0
 
@@ -37,7 +37,7 @@ if __name__ == '__main__':
     rospy.init_node('range_data_cancel_movement', anonymous=False)
 
     rospy.Subscriber("range_data", Range, callback)
-    rospy.Subscriber("/move_group/cancel", GoalID)
+    #rospy.Subscriber("/move_group/cancel", GoalID)
     rospy.Subscriber("/goal_position", Pose,callback_pose)
 
     flag_publisher = rospy.Publisher("/execution_flag",Int16,queue_size=20,latch=True)
@@ -57,10 +57,11 @@ if __name__ == '__main__':
             flag = 1
             rospy.loginfo(flag)
             flag_publisher.publish(flag)
-        elif ((flag ==1) & (rangedata>=threshold)):
+        elif ((rangedata>=threshold)):
             #rospy.loginfo("resume movement")
             flag=0
             rospy.loginfo(flag)
             flag_publisher.publish(flag)
+
 
 

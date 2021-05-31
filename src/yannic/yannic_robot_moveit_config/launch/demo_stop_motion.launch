@@ -72,5 +72,9 @@
   <node name="yannic_robot_set_marker" pkg="yannic_robot" type="yannic_robot_marker_range.py" output="screen"  >
   </node>
 
+ <node name="yannic_robot_range" pkg="yannic_robot" type="yannic_range_to_flag.py" output="screen"  >
+  </node>
   
+  <node name="yannic_robot_execute_motion" pkg="yannic_robot" type="yannic_robot_execute_motion.py" output="screen"  >
+  </node>  
 </launch>
