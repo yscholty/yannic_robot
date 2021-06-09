@@ -10,7 +10,6 @@ ROBOTHardwareInterface::ROBOTHardwareInterface(ros::NodeHandle& nh) : nh_(nh) {
 	
 	/* nodes defined in the Arduino code */
 	pub = nh_.advertise<rospy_tutorials::Floats>("/joints_to_arduino",10);
-	pub_states = nh_.advertise<std_msgs::Int32MultiArray>("/read_joint_state",10);
 	client = nh_.serviceClient<yannic_robot::Floats_array>("/read_joint_state");
 	
     non_realtime_loop_ = nh_.createTimer(update_freq, &ROBOTHardwareInterface::update, this);
@@ -81,7 +80,6 @@ void ROBOTHardwareInterface::read() {
     }
         
 
-	//pub_states.publish(joint_position_);
 }
 
 void ROBOTHardwareInterface::write(ros::Duration elapsed_time) {
