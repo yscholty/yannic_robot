@@ -58,10 +58,10 @@ ros::Subscriber<sensor_msgs::JointState> sub("joint_states", servo_cb);
 sensor_msgs::JointState robot_state;
 ros::Publisher pub("joint_feedback", &robot_state);
 char const robot_id[3] = "arm";
-char const *joint_name[6] = {"joint1", "joint2", "joint3", "rotate_base", "gripper_joint_r", "gripper_joint_l"};
-float pos[6];
-float vel[6];
-float eff[6];
+char const *joint_name[5] = {"joint1", "joint2", "joint3", "rotate_base", "gripper_joint"};
+float pos[5];
+float vel[5];
+float eff[5];
 
 //ROS setup for the range sensor
 sensor_msgs::Range range_msg;
@@ -101,10 +101,10 @@ sensor.begin();
   
   robot_state.header.frame_id = robot_id;
   robot_state.name = joint_name;
-  robot_state.name_length = 6;
-  robot_state.velocity_length = 6;
-  robot_state.position_length = 6;
-  robot_state.effort_length = 6;
+  robot_state.name_length = 5;
+  robot_state.velocity_length = 5;
+  robot_state.position_length = 5;
+  robot_state.effort_length = 5;
 
 //Define the servos for the joints
   rotate_base.attach(8);
@@ -134,7 +134,7 @@ void loop() {
         range_msg.range = (float)measure.RangeMilliMeter/1000.0f; // convert mm to m
         range_msg.header.stamp = nh.now();
         pub_range.publish(&range_msg);
-        //nh.loginfo("reading_data");
+        nh.loginfo("reading_data");
     } else {
       nh.logwarn("Out of range"); // if out of range, don't send message
     }
@@ -146,7 +146,7 @@ void loop() {
   pos[2] = analogRead(A2);
   pos[3] = analogRead(A3);
   pos[4] = analogRead(A4);
-  pos[5] = analogRead(A5);
+  //pos[5] = analogRead(A5);
 
   robot_state.header.stamp = nh.now();
   robot_state.position = pos;
