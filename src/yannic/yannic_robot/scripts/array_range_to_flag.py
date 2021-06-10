@@ -6,23 +6,25 @@
 import moveit_commander
 import rospy
 #import the messages that publish to the range_data topic
-from sensor_msgs.msg import Range
+from std_msgs.msg import Int16MultiArray
 from actionlib_msgs.msg import GoalID
 #from moveit_msgs.msg import MoveGroupActionGoal
 from geometry_msgs.msg import Pose
 from std_msgs.msg import Int16
 import time
+import numpy as np
 
 
 
 
-threshold = 0.12
+threshold = 30
     
-rangedata = 1.0
+rangedata = [1.0,1.0,1.0]
 
 def callback(data):
     global rangedata
-    rangedata = data.range
+    rangedata = data.data
+
     #rospy.loginfo(rangedata)
 
 def callback_pose(data):
@@ -36,7 +38,7 @@ if __name__ == '__main__':
 
     rospy.init_node('range_data_cancel_movement', anonymous=False)
 
-    rospy.Subscriber("range_data", Range, callback)
+    rospy.Subscriber("range_data", Int16MultiArray, callback)
     #rospy.Subscriber("/move_group/cancel", GoalID)
     rospy.Subscriber("/goal_position", Pose,callback_pose)
 
@@ -50,17 +52,20 @@ if __name__ == '__main__':
     while not rospy.is_shutdown():
         #flag = 1 -> motion stop
         #flag = 0 -> motion resume
+        rospy.loginfo(rangedata[0])
+        rospy.loginfo(rangedata[1])
+        rospy.loginfo(rangedata[2])
         
-        if ((rangedata < threshold) & (flag ==0)) : 
+        if ((np.min(rangedata) < threshold) & (flag ==0)) : 
             #publish empty message to GoalID -> stop motion  
             group.stop()    
             flag = 1
             #rospy.loginfo(flag)
             flag_publisher.publish(flag)
-        elif ((rangedata>=threshold)):
+        elif (np.min(rangedata)>=threshold):
             #rospy.loginfo("resume movement")
             flag=0
-            rospy.loginfo(rangedata)
+            rospy.loginfo(rangedata[0])
             flag_publisher.publish(flag)
 
 

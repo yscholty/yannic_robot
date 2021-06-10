@@ -12,7 +12,6 @@
 #include <sensor_msgs/JointState.h>
 #include <std_msgs/UInt16.h>
 #include <std_msgs/String.h>
-#include <sensor_msgs/Range.h>
 #include <std_msgs/Int16MultiArray.h>
 #include "Adafruit_VL53L0X.h"
 
@@ -97,12 +96,12 @@ void servo_cb(const sensor_msgs::JointState& cmd_msg){
 //set up the publisher of the joints
 //ROS setup for the analogRead feedback of the servos to the topic joint_feedback
 sensor_msgs::JointState robot_state;
-ros::Publisher pub("joint_states", &robot_state);
+ros::Publisher pub("joint_feedback", &robot_state);
 char const robot_id[3] = "arm";
-char const *joint_name[6] = {"joint1", "joint2", "joint3", "rotate_base", "gripper_joint_r", "gripper_joint_l"};
-float pos[6];
-float vel[6];
-float eff[6];
+char const *joint_name[5] = {"joint1", "joint2", "joint3", "rotate_base", "gripper_joint"};
+float pos[5];
+float vel[5];
+float eff[5];
 
 ///////////////////Range sensor //////////////////
 /////////////////////////////////////////////////
@@ -250,10 +249,10 @@ pinMode(SHT_LOX1, OUTPUT);
   
   robot_state.header.frame_id = robot_id;
   robot_state.name = joint_name;
-  robot_state.name_length = 6;
-  robot_state.velocity_length = 6;
-  robot_state.position_length = 6;
-  robot_state.effort_length = 6;
+  robot_state.name_length = 5;
+  robot_state.velocity_length = 5;
+  robot_state.position_length = 5;
+  robot_state.effort_length = 5;
 
 //Define the servos for the joints
   rotate_base.attach(8);
