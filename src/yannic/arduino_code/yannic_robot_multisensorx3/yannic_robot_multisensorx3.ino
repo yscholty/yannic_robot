@@ -34,9 +34,12 @@
 
 
 // set the pins to shutdown
-#define SHT_LOX1 7
-#define SHT_LOX2 6
-#define SHT_LOX3 5
+#define SHT_LOX1 6
+#define SHT_LOX2 5
+#define SHT_LOX3 4
+//3 2 7
+
+
 
 
 // objects for the vl53l0x
@@ -71,6 +74,7 @@ unsigned long t;
 
 // function call -> processing joint_states and controlling servos
 void servo_cb(const sensor_msgs::JointState& cmd_msg){
+  nh.loginfo("callbackersss");
   //get the values from joint_states topic
   //calibrate position of servos so they match the initial simulation start +/- changes direction.
   rotate_base_angle = radiansToDegrees(-1*cmd_msg.position[0]);
@@ -91,7 +95,7 @@ void servo_cb(const sensor_msgs::JointState& cmd_msg){
 
 //set up the ROS node -> servo_cb is subscriber for joint_states
 //ROS setup for the control of the Servos controlled by joint_states
-//ros::Subscriber<sensor_msgs::JointState> sub("joint_states", servo_cb);
+ros::Subscriber<sensor_msgs::JointState> sub("joint_states", servo_cb);
 
 //set up the publisher of the joints
 //ROS setup for the analogRead feedback of the servos to the topic joint_feedback
@@ -213,6 +217,7 @@ char dim0_label[] = "range_data";
 void setup() {
   nh.getHardware()->setBaud(250000);
   nh.initNode();
+  nh.subscribe(sub);
   nh.advertise(pub);
   nh.advertise(pub_range);
 
@@ -227,7 +232,7 @@ pinMode(SHT_LOX1, OUTPUT);
   digitalWrite(SHT_LOX2, LOW);
    digitalWrite(SHT_LOX3, LOW);
 
-  setID();
+  //setID();
   delay(100);
 
   
@@ -278,8 +283,8 @@ void loop() {
   if (millis()-t > 100) {
 
   //reading the RANGE sensor and publishing to the corresponding topic
-    read_dual_sensors();
-    pub_range.publish(&range_msg);
+    //read_dual_sensors();
+    //pub_range.publish(&range_msg);
    
 
     

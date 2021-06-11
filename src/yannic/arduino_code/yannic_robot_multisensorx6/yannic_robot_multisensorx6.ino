@@ -10,7 +10,6 @@
 #include <ros/time.h>
 #include <std_msgs/UInt16.h>
 #include <sensor_msgs/JointState.h>
-#include <std_msgs/UInt16.h>
 #include <std_msgs/String.h>
 #include <std_msgs/Int16MultiArray.h>
 #include "Adafruit_VL53L0X.h"
@@ -103,7 +102,7 @@ void servo_cb(const sensor_msgs::JointState& cmd_msg){
 
 //set up the ROS node -> servo_cb is subscriber for joint_states
 //ROS setup for the control of the Servos controlled by joint_states
-//ros::Subscriber<sensor_msgs::JointState> sub("joint_states", servo_cb);
+ros::Subscriber<sensor_msgs::JointState> sub("joint_states", servo_cb);
 
 //set up the publisher of the joints
 //ROS setup for the analogRead feedback of the servos to the topic joint_feedback
@@ -212,6 +211,8 @@ void setID() {
 }
 
 void read_dual_sensors() {
+
+  nh.loginfo("dualsensor");
   
   lox1.rangingTest(&measure1, false); // pass in 'true' to get debug data printout!
   lox2.rangingTest(&measure2, false); // pass in 'true' to get debug data printout!
@@ -253,7 +254,7 @@ void read_dual_sensors() {
   if(measure3.RangeStatus != 4) {
   char result3[8];
   dtostrf(measure3.RangeMilliMeter, 6, 2, result3);
-  //nh.loginfo(result3);
+  nh.loginfo(result3);
   range_msg.data[2] = measure3.RangeMilliMeter;
 
   } else {
@@ -317,7 +318,8 @@ void setup() {
   nh.getHardware()->setBaud(250000);
   nh.initNode();
   nh.advertise(pub);
-  //nh.advertise(pub_range);
+  nh.subscribe(sub);
+  nh.advertise(pub_range);
 
   while (!nh.connected() ){
     nh.spinOnce();
@@ -387,8 +389,8 @@ void loop() {
   if (millis()-t > 100) {
 
   //reading the RANGE sensor and publishing to the corresponding topic
-    //read_dual_sensors();
-    //pub_range.publish(&range_msg);
+    read_dual_sensors();
+    pub_range.publish(&range_msg);
    
 
     
@@ -398,12 +400,10 @@ void loop() {
   pos[2] = analogRead(A2);
   pos[3] = analogRead(A3);
   pos[4] = analogRead(A4);
-  pos[5] = analogRead(A5);
+  //pos[5] = analogRead(A5);
 
   robot_state.header.stamp = nh.now();
   robot_state.position = pos;
-  //robot_state.velocity = vel;
-  //robot_state.effort = eff;
   pub.publish( &robot_state); 
 
     t = millis();
