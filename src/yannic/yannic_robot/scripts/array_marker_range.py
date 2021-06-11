@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# code for array of six sensors
+
 import rospy
 import tf
 import copy

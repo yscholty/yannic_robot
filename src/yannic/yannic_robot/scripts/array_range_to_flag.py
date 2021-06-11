@@ -3,6 +3,9 @@
 # will print out the range data to the terminal in which the file is run. Reads range_data topic and saves the value to rangedata. if a distance below a threshold is sensed, the trajectory execution is cancelled. 
 # movement will be resumed once the distance sensor is again out of range
 
+# code for array of six sensors
+
+
 import moveit_commander
 import rospy
 #import the messages that publish to the range_data topic
@@ -19,7 +22,7 @@ import numpy as np
 
 threshold = 30
     
-rangedata = [1.0,1.0,1.0]
+rangedata = [1.0,1.0,1.0,1.0,1.0,1.0]
 
 def callback(data):
     global rangedata
@@ -52,9 +55,9 @@ if __name__ == '__main__':
     while not rospy.is_shutdown():
         #flag = 1 -> motion stop
         #flag = 0 -> motion resume
-        rospy.loginfo(rangedata[0])
-        rospy.loginfo(rangedata[1])
-        rospy.loginfo(rangedata[2])
+        #rospy.loginfo(rangedata[0])
+        #rospy.loginfo(rangedata[1])
+        #rospy.loginfo(rangedata[2])
         
         if ((np.min(rangedata) < threshold) & (flag ==0)) : 
             #publish empty message to GoalID -> stop motion  
@@ -65,7 +68,7 @@ if __name__ == '__main__':
         elif (np.min(rangedata)>=threshold):
             #rospy.loginfo("resume movement")
             flag=0
-            rospy.loginfo(rangedata[0])
+            #rospy.loginfo(rangedata[0])
             flag_publisher.publish(flag)
 
 
