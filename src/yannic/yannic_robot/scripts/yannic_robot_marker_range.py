@@ -137,6 +137,11 @@ if __name__=="__main__":
 	scene = moveit_commander.PlanningSceneInterface()
 	group_name = "robot_arm"
 	group = moveit_commander.MoveGroupCommander(group_name)
+
+	
+	###############velocity scaling factor #################
+	group.set_max_velocity_scaling_factor(0.5)
+
 	
 	# create an interactive marker server on the topic namespace simple_marker
 	server = InteractiveMarkerServer("simple_marker")

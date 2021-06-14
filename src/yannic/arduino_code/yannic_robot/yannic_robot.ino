@@ -11,8 +11,6 @@
 #include <sensor_msgs/JointState.h>
 #include <std_msgs/UInt16.h>
 #include <std_msgs/String.h>
-#include <sensor_msgs/Range.h>
-#include "Adafruit_VL53L0X.h"
 
 ros::NodeHandle  nh;
 Servo rotate_base;
@@ -58,53 +56,33 @@ ros::Subscriber<sensor_msgs::JointState> sub("joint_states", servo_cb);
 sensor_msgs::JointState robot_state;
 ros::Publisher pub("joint_feedback", &robot_state);
 char const robot_id[3] = "arm";
-char const *joint_name[6] = {"joint1", "joint2", "joint3", "rotate_base", "gripper_joint_r", "gripper_joint_l"};
-float pos[6];
-float vel[6];
-float eff[6];
+char const *joint_name[5] = {"joint1", "joint2", "joint3", "rotate_base", "gripper_joint"};
+float pos[5];
+float vel[5];
+float eff[5];
 
-//ROS setup for the range sensor
-sensor_msgs::Range range_msg;
-ros::Publisher pub_range( "range_data", &range_msg);
-Adafruit_VL53L0X sensor = Adafruit_VL53L0X();
-VL53L0X_RangingMeasurementData_t measure;
+
 
 void setup() {
   nh.getHardware()->setBaud(250000);
   nh.initNode();
   nh.subscribe(sub);
   nh.advertise(pub);
-  nh.advertise(pub_range);
 
   while (!nh.connected() ){
     nh.spinOnce();
 }
-sensor.begin();
-// if initialization failed - write message and freeze -> crucial for code run??
-  if (!sensor.begin()) {
-    nh.logwarn("Failed to setup VL53L0X sensor");
-    while(1);
-  }
-  nh.loginfo("VL53L0X API serial node started");
-  nh.loginfo("Read from analogread started -> joint_feedback");
-  nh.loginfo("joint_state subscriber set up for servo control <- joint_states");
-  
-  // fill static range message fields
-  range_msg.radiation_type = sensor_msgs::Range::INFRARED;
-  range_msg.header.frame_id =  "ir_ranger";
-  range_msg.field_of_view = 0.44; //25 degrees
-  range_msg.min_range = 0.03;
-  range_msg.max_range = 1.2;
+
 
   // Fulfill the sensor_msg/JointState msg
   //define the header of the joint_state message
   
   robot_state.header.frame_id = robot_id;
   robot_state.name = joint_name;
-  robot_state.name_length = 6;
-  robot_state.velocity_length = 6;
-  robot_state.position_length = 6;
-  robot_state.effort_length = 6;
+  robot_state.name_length = 5;
+  robot_state.velocity_length = 5;
+  robot_state.position_length = 5;
+  robot_state.effort_length = 5;
 
 //Define the servos for the joints
   rotate_base.attach(8);
@@ -128,17 +106,6 @@ void loop() {
   
   if (millis()-t > 100) {
 
-  //reading the RANGE sensor and publishing to the corresponding topic
-    sensor.rangingTest(&measure, false);
-    if (measure.RangeStatus != 4) {  // phase failures have incorrect data
-        range_msg.range = (float)measure.RangeMilliMeter/1000.0f; // convert mm to m
-        range_msg.header.stamp = nh.now();
-        pub_range.publish(&range_msg);
-        //nh.loginfo("reading_data");
-    } else {
-      nh.logwarn("Out of range"); // if out of range, don't send message
-    }
-
     
   //reading the analog values and saving them to the later on published topic
   pos[0] = analogRead(A0);
@@ -146,7 +113,7 @@ void loop() {
   pos[2] = analogRead(A2);
   pos[3] = analogRead(A3);
   pos[4] = analogRead(A4);
-  pos[5] = analogRead(A5);
+  //pos[5] = analogRead(A5);
 
   robot_state.header.stamp = nh.now();
   robot_state.position = pos;

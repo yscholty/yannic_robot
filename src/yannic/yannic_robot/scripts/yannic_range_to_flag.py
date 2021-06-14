@@ -55,12 +55,12 @@ if __name__ == '__main__':
             #publish empty message to GoalID -> stop motion  
             group.stop()    
             flag = 1
-            rospy.loginfo(flag)
+            #rospy.loginfo(flag)
             flag_publisher.publish(flag)
         elif ((rangedata>=threshold)):
             #rospy.loginfo("resume movement")
             flag=0
-            rospy.loginfo(flag)
+            rospy.loginfo(rangedata)
             flag_publisher.publish(flag)
 
 

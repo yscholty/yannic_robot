@@ -1,9 +1,11 @@
-yannic_robot:
+roslaunch yannic_robot_moveit_config demo_stop_motion.launch:
 
-on branch beta:
+marker can be set and motion will be stopped when ONE sensors reads a value smaller than threshold.
 
-try to incorporate the feature from arduino_robot_pkg. Here motor controls work but no feedback from the feedback line. Changed urdf to be my model instead of the stls
+roslaunch yannic_robot_moveit_config demo_stop_motion_array.launch:
 
-yannic_robot_moveit_config:
+does the same but for an array of sensors of three sensors. Be careful different ros message.
 
-demo.launch works well with rosserial -> next step transfer actual joint states through feedback line with float_array
+
+TODO:
+Make available for any size of arrays withouth modifying the code.
