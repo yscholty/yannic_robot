@@ -2,5 +2,4 @@ build
 devel
 logs
 main
-.catkin_tools
-.catkin_workspace
+

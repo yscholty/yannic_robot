@@ -11,42 +11,50 @@
 #include <rospy_tutorials/Floats.h>
 #include <yannic_robot/Floats_array.h>
 #include <angles/angles.h>
+#include "sensor_msgs/JointState.h"
+#include <iostream>
+
 
 class ROBOTHardwareInterface : public hardware_interface::RobotHW 
 {
 	public:
-        ROBOTHardwareInterface(ros::NodeHandle& nh);
+        ROBOTHardwareInterface();
         ~ROBOTHardwareInterface();
-        void init();
+        bool init(ros::NodeHandle& root_nh, ros::NodeHandle& robot_hw_nh);
         void update(const ros::TimerEvent& e);
-        void read();
-        void write(ros::Duration elapsed_time);
+        void read(const ros::Time& time, const ros::Duration& period);
+        void write(const ros::Time& time, const ros::Duration& period);
+
         ros::Publisher pub;
+        //ros::Subscriber sub;
         
-        ros:: Publisher pub_states;
-        
-        ros::ServiceClient client;
-        rospy_tutorials::Floats joints_pub;
+        std::vector<double> joints_pub;
         yannic_robot::Floats_array joint_read;
+        sensor_msgs::JointState joint_feedback;
         
     protected:
-        hardware_interface::JointStateInterface joint_state_interface_;
-        hardware_interface::PositionJointInterface position_joint_interface_;
+        ros::NodeHandle nh_;
 
-        joint_limits_interface::PositionJointSaturationInterface position_joint_saturation_interface_;
+        //interfaces
+    	hardware_interface::JointStateInterface joint_state_interface;
+    	hardware_interface::PositionJointInterface position_joint_interface;
+
+        joint_limits_interface::PositionJointSaturationInterface     position_joint_saturation_interface;
         joint_limits_interface::PositionJointSoftLimitsInterface positionJointSoftLimitsInterface;
         
-        int num_joints_;
-        std::string joint_names_[5];  
-        double joint_position_[5];
-        double joint_velocity_[5];
-        double joint_effort_[5];
-        double joint_position_command_[5];
+        int num_joints;
+        std::vector<std::string> joint_name;
         
-        ros::NodeHandle nh_;
-        ros::Timer non_realtime_loop_;
-        ros::Duration elapsed_time_;
-        double loop_hz_;
-        boost::shared_ptr<controller_manager::ControllerManager> controller_manager_;
-};
+        //actual states
+    std::vector<double> joint_position_state;
+    std::vector<double> joint_velocity_state;
+    std::vector<double> joint_effort_state;
 
+    //given setpoints
+    std::vector<double> joint_position_command;
+
+    //MyRobot1CPP* robot;
+        
+
+               
+};
