@@ -36,12 +36,13 @@
 
 
 // set the pins to shutdown
-#define SHT_LOX1 7
-#define SHT_LOX2 6
-#define SHT_LOX3 5
-#define SHT_LOX4 4
-#define SHT_LOX5 3
-#define SHT_LOX6 2
+
+#define SHT_LOX1 6
+#define SHT_LOX2 5
+#define SHT_LOX3 4
+#define SHT_LOX4 3
+#define SHT_LOX5 2
+#define SHT_LOX6 7
 
 
 // objects for the vl53l0x
@@ -225,11 +226,12 @@ void read_dual_sensors() {
   // print sensor one reading
   //nh.loginfo("1: ");
   if(measure1.RangeStatus != 4) {     // if not out of range
-    char result1[8];
-  dtostrf(measure1.RangeMilliMeter, 6, 2, result1);
+  //  char result1[8];
+  //dtostrf(measure1.RangeMilliMeter, 6, 2, result1);
   //nh.loginfo(result1);
     range_msg.data[0] = measure1.RangeMilliMeter;
   } else {
+    range_msg.data[0] = 4000;
     //nh.loginfo("Out of range");
   }
   
@@ -238,12 +240,13 @@ void read_dual_sensors() {
   // print sensor two reading
   //nh.loginfo("2: ");
   if(measure2.RangeStatus != 4) {
-  char result2[8];
-  dtostrf(measure2.RangeMilliMeter, 6, 2, result2);
+  //char result2[8];
+  //dtostrf(measure2.RangeMilliMeter, 6, 2, result2);
   //nh.loginfo(result2);
   range_msg.data[1] = measure2.RangeMilliMeter;
 
   } else {
+    range_msg.data[1] = 4000;
     //nh.loginfo("Out of range");
   }
 
@@ -252,12 +255,13 @@ void read_dual_sensors() {
   // print sensor three reading
   //nh.loginfo("3: ");
   if(measure3.RangeStatus != 4) {
-  char result3[8];
-  dtostrf(measure3.RangeMilliMeter, 6, 2, result3);
-  nh.loginfo(result3);
+  //char result3[8];
+  //dtostrf(measure3.RangeMilliMeter, 6, 2, result3);
+  //nh.loginfo(result3);
   range_msg.data[2] = measure3.RangeMilliMeter;
 
   } else {
+    range_msg.data[2] = 4000;
     //nh.loginfo("Out of range");
   }
 
@@ -266,11 +270,12 @@ void read_dual_sensors() {
   // print sensor four reading
   //nh.loginfo("4: ");
   if(measure4.RangeStatus != 4) {     // if not out of range
-    char result4[8];
-  dtostrf(measure4.RangeMilliMeter, 6, 2, result4);
+    //char result4[8];
+  //dtostrf(measure4.RangeMilliMeter, 6, 2, result4);
   //nh.loginfo(result4);
     range_msg.data[3] = measure4.RangeMilliMeter;
   } else {
+    range_msg.data[3] = 4000;
     //nh.loginfo("Out of range");
   }
   
@@ -279,12 +284,13 @@ void read_dual_sensors() {
   // print sensor five reading
   //nh.loginfo("5: ");
   if(measure5.RangeStatus != 4) {
-  char result5[8];
-  dtostrf(measure5.RangeMilliMeter, 6, 2, result5);
+  //char result5[8];
+  //dtostrf(measure5.RangeMilliMeter, 6, 2, result5);
   //nh.loginfo(result5);
   range_msg.data[4] = measure5.RangeMilliMeter;
 
   } else {
+    range_msg.data[4] = 4000;
     //nh.loginfo("Out of range");
   }
 
@@ -293,12 +299,13 @@ void read_dual_sensors() {
   // print sensor six reading
   //nh.loginfo("6: ");
   if(measure6.RangeStatus != 4) {
-  char result6[8];
-  dtostrf(measure6.RangeMilliMeter, 6, 2, result6);
+  //char result6[8];
+  //dtostrf(measure6.RangeMilliMeter, 6, 2, result6);
   //nh.loginfo(result6);
   range_msg.data[5] = measure6.RangeMilliMeter;
 
   } else {
+    range_msg.data[5] = 4000;
     //nh.loginfo("Out of range");
   }
 
@@ -386,7 +393,7 @@ void setup() {
 void loop() {
 
   
-  if (millis()-t > 100) {
+  if (millis()-t > 200) {
 
   //reading the RANGE sensor and publishing to the corresponding topic
     read_dual_sensors();
@@ -400,7 +407,6 @@ void loop() {
   pos[2] = analogRead(A2);
   pos[3] = analogRead(A3);
   pos[4] = analogRead(A4);
-  //pos[5] = analogRead(A5);
 
   robot_state.header.stamp = nh.now();
   robot_state.position = pos;

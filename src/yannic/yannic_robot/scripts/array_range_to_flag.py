@@ -20,7 +20,7 @@ import numpy as np
 
 
 
-threshold = 30
+threshold = 70
     
 rangedata = [1.0,1.0,1.0,1.0,1.0,1.0]
 
@@ -45,7 +45,7 @@ if __name__ == '__main__':
     #rospy.Subscriber("/move_group/cancel", GoalID)
     rospy.Subscriber("/goal_position", Pose,callback_pose)
 
-    flag_publisher = rospy.Publisher("/execution_flag",Int16,queue_size=20,latch=True)
+    flag_publisher = rospy.Publisher("/execution_flag",Int16,queue_size=5,latch=True)
 
     #needed to initialise everything
     time.sleep(1)
