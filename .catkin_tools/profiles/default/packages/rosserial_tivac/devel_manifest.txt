@@ -1,0 +1,6 @@
+rosserial/rosserial_tivac
+/home/d5004/yannic_robot/devel/.private/rosserial_tivac/cmake.lock /home/d5004/yannic_robot/devel/./cmake.lock
+/home/d5004/yannic_robot/devel/.private/rosserial_tivac/lib/pkgconfig/rosserial_tivac.pc /home/d5004/yannic_robot/devel/lib/pkgconfig/rosserial_tivac.pc
+/home/d5004/yannic_robot/devel/.private/rosserial_tivac/share/rosserial_tivac/cmake/rosserial_tivacConfig.cmake /home/d5004/yannic_robot/devel/share/rosserial_tivac/cmake/rosserial_tivacConfig.cmake
+/home/d5004/yannic_robot/devel/.private/rosserial_tivac/share/rosserial_tivac/cmake/rosserial_tivac-extras.cmake /home/d5004/yannic_robot/devel/share/rosserial_tivac/cmake/rosserial_tivac-extras.cmake
+/home/d5004/yannic_robot/devel/.private/rosserial_tivac/share/rosserial_tivac/cmake/rosserial_tivacConfig-version.cmake /home/d5004/yannic_robot/devel/share/rosserial_tivac/cmake/rosserial_tivacConfig-version.cmake

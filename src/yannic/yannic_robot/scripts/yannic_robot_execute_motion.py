@@ -46,7 +46,7 @@ if __name__ == '__main__':
         if ((flag == 0)):
             #print("resume execution")
             group.set_position_target([position.x,position.y,position.z])
-            group.set_max_velocity_scaling_factor(0.5)
+            group.set_max_velocity_scaling_factor(0.4)
             plan = group.go(wait=True)
             group.stop()
             group.clear_pose_targets()

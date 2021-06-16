@@ -1,0 +1,5 @@
+rosserial/rosserial_test
+/home/d5004/yannic_robot/devel/.private/rosserial_test/cmake.lock /home/d5004/yannic_robot/devel/./cmake.lock
+/home/d5004/yannic_robot/devel/.private/rosserial_test/lib/pkgconfig/rosserial_test.pc /home/d5004/yannic_robot/devel/lib/pkgconfig/rosserial_test.pc
+/home/d5004/yannic_robot/devel/.private/rosserial_test/share/rosserial_test/cmake/rosserial_testConfig.cmake /home/d5004/yannic_robot/devel/share/rosserial_test/cmake/rosserial_testConfig.cmake
+/home/d5004/yannic_robot/devel/.private/rosserial_test/share/rosserial_test/cmake/rosserial_testConfig-version.cmake /home/d5004/yannic_robot/devel/share/rosserial_test/cmake/rosserial_testConfig-version.cmake

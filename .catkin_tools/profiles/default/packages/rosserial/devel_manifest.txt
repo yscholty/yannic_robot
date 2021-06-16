@@ -1,0 +1,2 @@
+rosserial/rosserial
+/home/d5004/yannic_robot/devel/.private/rosserial/cmake.lock /home/d5004/yannic_robot/devel/./cmake.lock

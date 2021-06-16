@@ -1,0 +1,9 @@
+rosserial/rosserial_server
+/home/d5004/yannic_robot/devel/.private/rosserial_server/cmake.lock /home/d5004/yannic_robot/devel/./cmake.lock
+/home/d5004/yannic_robot/devel/.private/rosserial_server/lib/librosserial_server_lookup.so /home/d5004/yannic_robot/devel/lib/librosserial_server_lookup.so
+/home/d5004/yannic_robot/devel/.private/rosserial_server/lib/pkgconfig/rosserial_server.pc /home/d5004/yannic_robot/devel/lib/pkgconfig/rosserial_server.pc
+/home/d5004/yannic_robot/devel/.private/rosserial_server/lib/rosserial_server/serial_node /home/d5004/yannic_robot/devel/lib/rosserial_server/serial_node
+/home/d5004/yannic_robot/devel/.private/rosserial_server/lib/rosserial_server/udp_socket_node /home/d5004/yannic_robot/devel/lib/rosserial_server/udp_socket_node
+/home/d5004/yannic_robot/devel/.private/rosserial_server/lib/rosserial_server/socket_node /home/d5004/yannic_robot/devel/lib/rosserial_server/socket_node
+/home/d5004/yannic_robot/devel/.private/rosserial_server/share/rosserial_server/cmake/rosserial_serverConfig.cmake /home/d5004/yannic_robot/devel/share/rosserial_server/cmake/rosserial_serverConfig.cmake
+/home/d5004/yannic_robot/devel/.private/rosserial_server/share/rosserial_server/cmake/rosserial_serverConfig-version.cmake /home/d5004/yannic_robot/devel/share/rosserial_server/cmake/rosserial_serverConfig-version.cmake

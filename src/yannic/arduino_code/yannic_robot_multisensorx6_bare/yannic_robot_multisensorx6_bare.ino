@@ -1,6 +1,4 @@
-//for six  distance sensors connected
-//disabled the joint_feedback. -> needed if we use ros_control with the hardware interface
-
+//for three distance sensors connected
 #if defined(ARDUINO) && ARDUINO >= 100
   #include "Arduino.h"
 #else
@@ -109,8 +107,8 @@ ros::Subscriber<sensor_msgs::JointState> sub("joint_states", servo_cb);
 
 //set up the publisher of the joints
 //ROS setup for the analogRead feedback of the servos to the topic joint_feedback
-sensor_msgs::JointState robot_state;
-ros::Publisher pub("joint_feedback", &robot_state);
+//sensor_msgs::JointState robot_state;
+//ros::Publisher pub("joint_feedback", &robot_state);
 char const robot_id[3] = "arm";
 char const *joint_name[5] = {"joint1", "joint2", "joint3", "rotate_base", "gripper_joint"};
 float pos[5];
@@ -326,7 +324,7 @@ char dim0_label[] = "range_data";
 void setup() {
   nh.getHardware()->setBaud(250000);
   nh.initNode();
-  nh.advertise(pub);
+//  nh.advertise(pub);
   nh.subscribe(sub);
   nh.advertise(pub_range);
 
@@ -367,12 +365,13 @@ void setup() {
   // Fulfill the sensor_msg/JointState msg
   //define the header of the joint_state message
   
-  robot_state.header.frame_id = robot_id;
+/*  robot_state.header.frame_id = robot_id;
   robot_state.name = joint_name;
   robot_state.name_length = 5;
   robot_state.velocity_length = 5;
   robot_state.position_length = 5;
   robot_state.effort_length = 5;
+  */
 
 //Define the servos for the joints
   rotate_base.attach(8);
@@ -394,15 +393,15 @@ void setup() {
 
 void loop() {
 
-  read_dual_sensors();
+  
   if (millis()-t > 100) {
 
   //reading the RANGE sensor and publishing to the corresponding topic
-    
+    read_dual_sensors();
     pub_range.publish(&range_msg);
    
 
-   
+  /*  
   //reading the analog values and saving them to the later on published topic
   pos[0] = analogRead(A0);
   pos[1] = analogRead(A1);
@@ -413,12 +412,12 @@ void loop() {
   robot_state.header.stamp = nh.now();
   robot_state.position = pos;
   pub.publish( &robot_state); 
-  
+  */
 
     t = millis();
   }
-nh.spinOnce();
-  
+
+  nh.spinOnce();
   //delay(100);
 }
 

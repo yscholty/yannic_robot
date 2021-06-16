@@ -1,0 +1,7 @@
+rosserial/rosserial_chibios
+/home/d5004/yannic_robot/devel/.private/rosserial_chibios/cmake.lock /home/d5004/yannic_robot/devel/./cmake.lock
+/home/d5004/yannic_robot/devel/.private/rosserial_chibios/lib/pkgconfig/rosserial_chibios.pc /home/d5004/yannic_robot/devel/lib/pkgconfig/rosserial_chibios.pc
+/home/d5004/yannic_robot/devel/.private/rosserial_chibios/share/rosserial_chibios/make_libraries.py /home/d5004/yannic_robot/devel/share/rosserial_chibios/make_libraries.py
+/home/d5004/yannic_robot/devel/.private/rosserial_chibios/share/rosserial_chibios/cmake.lock /home/d5004/yannic_robot/devel/share/rosserial_chibios/cmake.lock
+/home/d5004/yannic_robot/devel/.private/rosserial_chibios/share/rosserial_chibios/cmake/rosserial_chibiosConfig.cmake /home/d5004/yannic_robot/devel/share/rosserial_chibios/cmake/rosserial_chibiosConfig.cmake
+/home/d5004/yannic_robot/devel/.private/rosserial_chibios/share/rosserial_chibios/cmake/rosserial_chibiosConfig-version.cmake /home/d5004/yannic_robot/devel/share/rosserial_chibios/cmake/rosserial_chibiosConfig-version.cmake

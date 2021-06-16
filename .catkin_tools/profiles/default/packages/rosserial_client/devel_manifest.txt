@@ -1,0 +1,9 @@
+rosserial/rosserial_client
+/home/d5004/yannic_robot/devel/.private/rosserial_client/cmake.lock /home/d5004/yannic_robot/devel/./cmake.lock
+/home/d5004/yannic_robot/devel/.private/rosserial_client/lib/pkgconfig/rosserial_client.pc /home/d5004/yannic_robot/devel/lib/pkgconfig/rosserial_client.pc
+/home/d5004/yannic_robot/devel/.private/rosserial_client/lib/python3/dist-packages/rosserial_client/__init__.py /home/d5004/yannic_robot/devel/lib/python3/dist-packages/rosserial_client/__init__.py
+/home/d5004/yannic_robot/devel/.private/rosserial_client/lib/rosserial_client/make_libraries /home/d5004/yannic_robot/devel/lib/rosserial_client/make_libraries
+/home/d5004/yannic_robot/devel/.private/rosserial_client/lib/rosserial_client/make_library.py /home/d5004/yannic_robot/devel/lib/rosserial_client/make_library.py
+/home/d5004/yannic_robot/devel/.private/rosserial_client/lib/rosserial_client/cmake.lock /home/d5004/yannic_robot/devel/lib/rosserial_client/cmake.lock
+/home/d5004/yannic_robot/devel/.private/rosserial_client/share/rosserial_client/cmake/rosserial_clientConfig-version.cmake /home/d5004/yannic_robot/devel/share/rosserial_client/cmake/rosserial_clientConfig-version.cmake
+/home/d5004/yannic_robot/devel/.private/rosserial_client/share/rosserial_client/cmake/rosserial_clientConfig.cmake /home/d5004/yannic_robot/devel/share/rosserial_client/cmake/rosserial_clientConfig.cmake
