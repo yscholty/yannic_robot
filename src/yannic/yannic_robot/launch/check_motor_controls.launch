@@ -18,14 +18,14 @@
 
  
 <!-- send joint values to the hardware -->  
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/yannic_robot"
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/"
         args="
-            /joints_update
-            /joint1
-            /joint2
-            /joint3
-            /rotate_base
-            /gripper_joint            
+            yannic_robot/joints_update
+            yannic_robot/joint1
+            yannic_robot/joint2
+            yannic_robot/joint3
+            yannic_robot/rotate_base
+            yannic_robot/gripper_joint            
         "/>
         
         

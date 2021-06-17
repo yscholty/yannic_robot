@@ -26,10 +26,9 @@ public:
   ROBOTHardwareInterface() {}
 
   bool init(ros::NodeHandle &root_nh, ros::NodeHandle &robot_hw_nh){
-    joint_state_sub_ = root_nh.subscribe(
-        "joint_feedback", 1000, &ROBOTHardwareInterface::arrayCallback, this);
-          pub = robot_hw_nh.advertise<rospy_tutorials::Floats>("/joints_to_arduino",10);
-          controller_manager_.reset(new controller_manager::ControllerManager(this, robot_hw_nh));
+        joint_state_sub_ = root_nh.subscribe("joint_feedback", 1000, &ROBOTHardwareInterface::arrayCallback, this);
+        pub = robot_hw_nh.advertise<rospy_tutorials::Floats>("/joints_to_arduino",10);
+        controller_manager_.reset(new controller_manager::ControllerManager(this, robot_hw_nh));
 
         
         num_joints_=5;
@@ -132,13 +131,17 @@ int main(int argc, char **argv) {
 
   ROBOTHardwareInterface ROBOT;
   controller_manager::ControllerManager cm(&ROBOT);
+  //controller_manager_.reset(new controller_manager::ControllerManager(ROBOTHardwareInterface, nh));
+
   bool init_success = ROBOT.init(nh, nh);
 
   ros::Duration period(1.0 / 10); // 10Hz update rate
   while (ros::ok()) {
     ROS_INFO("Readiiiing");
     ROBOT.read(ros::Time::now(), period);
+    
     ROS_INFO("Updatiiiing");
+
     cm.update(ros::Time::now(), period);
     ROS_INFO("Writiiiiing");
     ROBOT.write(ros::Time::now(), period);

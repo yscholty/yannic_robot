@@ -105,7 +105,7 @@ void servo_cb(const sensor_msgs::JointState& cmd_msg){
 
 //set up the ROS node -> servo_cb is subscriber for joint_states
 //ROS setup for the control of the Servos controlled by joint_states
-ros::Subscriber<sensor_msgs::JointState> sub("joint_states", servo_cb);
+ros::Subscriber<sensor_msgs::JointState> sub("joints_to_arduino", servo_cb);
 
 //set up the publisher of the joints
 //ROS setup for the analogRead feedback of the servos to the topic joint_feedback
@@ -116,6 +116,8 @@ char const *joint_name[5] = {"joint1", "joint2", "joint3", "rotate_base", "gripp
 float pos[5];
 float vel[5];
 float eff[5];
+
+float readservo1=0,readservo2=0,readservo3=0,readservo_rotate=0,readservo_gripper=0;
 
 ///////////////////Range sensor //////////////////
 /////////////////////////////////////////////////
@@ -404,11 +406,21 @@ void loop() {
 
    
   //reading the analog values and saving them to the later on published topic
-  pos[0] = analogRead(A0);
-  pos[1] = analogRead(A1);
-  pos[2] = analogRead(A2);
-  pos[3] = analogRead(A3);
-  pos[4] = analogRead(A4);
+  readservo1 = analogRead(A0);
+  readservo2 = analogRead(A1);
+  readservo3 = analogRead(A2);
+  readservo_rotate = analogRead(A3);
+  readservo_gripper = analogRead(A4);
+/*
+  pos[0]=-(readservo1-240) * (180.0/325.0) *3.1416/180;
+  pos[1]=(readservo2-103) * (180.0/314.0) *3.1416/180;
+  pos[2]=-(readservo3-240) * (180.0/339.0) *3.1416/180;  
+  pos[3]=-(readservo_rotate+149) * (180.0/340) *3.1416/180; 
+  pos[4]=(readservo_gripper-95) * (180.0/-152) *3.1416/180*1/40; 
+*/
+  //char re[8];
+  //dtostrf(pos[4], 6, 2, re);
+  //nh.loginfo(re);
 
   robot_state.header.stamp = nh.now();
   robot_state.position = pos;

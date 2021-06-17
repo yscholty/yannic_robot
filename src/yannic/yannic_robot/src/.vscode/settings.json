@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.tcc": "cpp",
-        "chrono": "cpp"
+        "chrono": "cpp",
+        "typeinfo": "cpp"
     }
 }
