@@ -1,2 +1,0 @@
-moveit/moveit_ros/moveit_ros
-/home/yannic/yannic_master/devel/.private/moveit_ros/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock

@@ -1,12 +1,13 @@
 <?xml version="1.0"?>
 <launch>
    
+   <rosparam file="$(find yannic_robot)/config/controllers.yaml" command="load"/>
    <!-- upload urdf.xacro and convert to urdf-->
    <arg name="model" default="$(find yannic_robot)/urdf/yannic_robot.urdf.xacro"/>
   <arg name="gui" default="true" /> 
   <param name="robot_description" command="$(find xacro)/xacro $(arg model)" />
   
-       <node name="robot_hardware_interface" pkg="yannic_robot" type="robot_hardware_interface" output="screen"/> 
+  <node name="robot_hardware_interface" pkg="yannic_robot" type="robot_hardware_interface" output="screen"/> 
   
        
 <!-- Combine joint values -->

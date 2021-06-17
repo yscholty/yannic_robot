@@ -1,2 +1,0 @@
-cartesian_controllers/cartesian_controllers
-/home/yannic/yannic_master/devel/.private/cartesian_controllers/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock

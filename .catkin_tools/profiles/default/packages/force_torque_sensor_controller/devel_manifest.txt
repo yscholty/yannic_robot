@@ -1,6 +1,0 @@
-ros_controllers/force_torque_sensor_controller
-/home/yannic/yannic_master/devel/.private/force_torque_sensor_controller/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock
-/home/yannic/yannic_master/devel/.private/force_torque_sensor_controller/share/force_torque_sensor_controller/cmake/force_torque_sensor_controllerConfig-version.cmake /home/yannic/yannic_master/devel/share/force_torque_sensor_controller/cmake/force_torque_sensor_controllerConfig-version.cmake
-/home/yannic/yannic_master/devel/.private/force_torque_sensor_controller/share/force_torque_sensor_controller/cmake/force_torque_sensor_controllerConfig.cmake /home/yannic/yannic_master/devel/share/force_torque_sensor_controller/cmake/force_torque_sensor_controllerConfig.cmake
-/home/yannic/yannic_master/devel/.private/force_torque_sensor_controller/lib/libforce_torque_sensor_controller.so /home/yannic/yannic_master/devel/lib/libforce_torque_sensor_controller.so
-/home/yannic/yannic_master/devel/.private/force_torque_sensor_controller/lib/pkgconfig/force_torque_sensor_controller.pc /home/yannic/yannic_master/devel/lib/pkgconfig/force_torque_sensor_controller.pc

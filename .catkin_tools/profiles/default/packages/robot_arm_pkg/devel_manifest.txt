@@ -1,5 +1,0 @@
-arduino_robot_arm/robot_arm_pkg
-/home/yannic/yannic_master/devel/.private/robot_arm_pkg/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock
-/home/yannic/yannic_master/devel/.private/robot_arm_pkg/share/robot_arm_pkg/cmake/robot_arm_pkgConfig-version.cmake /home/yannic/yannic_master/devel/share/robot_arm_pkg/cmake/robot_arm_pkgConfig-version.cmake
-/home/yannic/yannic_master/devel/.private/robot_arm_pkg/share/robot_arm_pkg/cmake/robot_arm_pkgConfig.cmake /home/yannic/yannic_master/devel/share/robot_arm_pkg/cmake/robot_arm_pkgConfig.cmake
-/home/yannic/yannic_master/devel/.private/robot_arm_pkg/lib/pkgconfig/robot_arm_pkg.pc /home/yannic/yannic_master/devel/lib/pkgconfig/robot_arm_pkg.pc

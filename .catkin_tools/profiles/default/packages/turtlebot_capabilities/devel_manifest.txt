@@ -1,5 +1,0 @@
-turtlebot/turtlebot_capabilities
-/home/yannic/yannic_master/devel/.private/turtlebot_capabilities/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock
-/home/yannic/yannic_master/devel/.private/turtlebot_capabilities/share/turtlebot_capabilities/cmake/turtlebot_capabilitiesConfig-version.cmake /home/yannic/yannic_master/devel/share/turtlebot_capabilities/cmake/turtlebot_capabilitiesConfig-version.cmake
-/home/yannic/yannic_master/devel/.private/turtlebot_capabilities/share/turtlebot_capabilities/cmake/turtlebot_capabilitiesConfig.cmake /home/yannic/yannic_master/devel/share/turtlebot_capabilities/cmake/turtlebot_capabilitiesConfig.cmake
-/home/yannic/yannic_master/devel/.private/turtlebot_capabilities/lib/pkgconfig/turtlebot_capabilities.pc /home/yannic/yannic_master/devel/lib/pkgconfig/turtlebot_capabilities.pc

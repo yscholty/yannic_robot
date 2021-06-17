@@ -1,6 +1,0 @@
-arduino_robot_arm/moveit_pkg
-/home/yannic/yannic_master/devel/.private/moveit_pkg/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock
-/home/yannic/yannic_master/devel/.private/moveit_pkg/share/moveit_pkg/cmake/moveit_pkgConfig.cmake /home/yannic/yannic_master/devel/share/moveit_pkg/cmake/moveit_pkgConfig.cmake
-/home/yannic/yannic_master/devel/.private/moveit_pkg/share/moveit_pkg/cmake/moveit_pkgConfig-version.cmake /home/yannic/yannic_master/devel/share/moveit_pkg/cmake/moveit_pkgConfig-version.cmake
-/home/yannic/yannic_master/devel/.private/moveit_pkg/lib/moveit_pkg/move_group_node /home/yannic/yannic_master/devel/lib/moveit_pkg/move_group_node
-/home/yannic/yannic_master/devel/.private/moveit_pkg/lib/pkgconfig/moveit_pkg.pc /home/yannic/yannic_master/devel/lib/pkgconfig/moveit_pkg.pc

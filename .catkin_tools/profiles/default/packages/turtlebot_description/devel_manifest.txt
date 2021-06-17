@@ -1,5 +1,0 @@
-turtlebot/turtlebot_description
-/home/yannic/yannic_master/devel/.private/turtlebot_description/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock
-/home/yannic/yannic_master/devel/.private/turtlebot_description/share/turtlebot_description/cmake/turtlebot_descriptionConfig.cmake /home/yannic/yannic_master/devel/share/turtlebot_description/cmake/turtlebot_descriptionConfig.cmake
-/home/yannic/yannic_master/devel/.private/turtlebot_description/share/turtlebot_description/cmake/turtlebot_descriptionConfig-version.cmake /home/yannic/yannic_master/devel/share/turtlebot_description/cmake/turtlebot_descriptionConfig-version.cmake
-/home/yannic/yannic_master/devel/.private/turtlebot_description/lib/pkgconfig/turtlebot_description.pc /home/yannic/yannic_master/devel/lib/pkgconfig/turtlebot_description.pc

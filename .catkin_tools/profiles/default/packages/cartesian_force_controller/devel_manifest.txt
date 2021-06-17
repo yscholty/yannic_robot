@@ -1,6 +1,0 @@
-cartesian_controllers/cartesian_force_controller
-/home/yannic/yannic_master/devel/.private/cartesian_force_controller/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock
-/home/yannic/yannic_master/devel/.private/cartesian_force_controller/share/cartesian_force_controller/cmake/cartesian_force_controllerConfig-version.cmake /home/yannic/yannic_master/devel/share/cartesian_force_controller/cmake/cartesian_force_controllerConfig-version.cmake
-/home/yannic/yannic_master/devel/.private/cartesian_force_controller/share/cartesian_force_controller/cmake/cartesian_force_controllerConfig.cmake /home/yannic/yannic_master/devel/share/cartesian_force_controller/cmake/cartesian_force_controllerConfig.cmake
-/home/yannic/yannic_master/devel/.private/cartesian_force_controller/lib/libcartesian_force_controller.so /home/yannic/yannic_master/devel/lib/libcartesian_force_controller.so
-/home/yannic/yannic_master/devel/.private/cartesian_force_controller/lib/pkgconfig/cartesian_force_controller.pc /home/yannic/yannic_master/devel/lib/pkgconfig/cartesian_force_controller.pc

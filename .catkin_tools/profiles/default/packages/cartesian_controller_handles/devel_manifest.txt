@@ -1,6 +1,0 @@
-cartesian_controllers/cartesian_controller_handles
-/home/yannic/yannic_master/devel/.private/cartesian_controller_handles/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock
-/home/yannic/yannic_master/devel/.private/cartesian_controller_handles/share/cartesian_controller_handles/cmake/cartesian_controller_handlesConfig.cmake /home/yannic/yannic_master/devel/share/cartesian_controller_handles/cmake/cartesian_controller_handlesConfig.cmake
-/home/yannic/yannic_master/devel/.private/cartesian_controller_handles/share/cartesian_controller_handles/cmake/cartesian_controller_handlesConfig-version.cmake /home/yannic/yannic_master/devel/share/cartesian_controller_handles/cmake/cartesian_controller_handlesConfig-version.cmake
-/home/yannic/yannic_master/devel/.private/cartesian_controller_handles/lib/libcartesian_controller_handles.so /home/yannic/yannic_master/devel/lib/libcartesian_controller_handles.so
-/home/yannic/yannic_master/devel/.private/cartesian_controller_handles/lib/pkgconfig/cartesian_controller_handles.pc /home/yannic/yannic_master/devel/lib/pkgconfig/cartesian_controller_handles.pc

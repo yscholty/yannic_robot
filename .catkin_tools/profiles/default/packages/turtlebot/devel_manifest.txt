@@ -1,2 +1,0 @@
-turtlebot/turtlebot
-/home/yannic/yannic_master/devel/.private/turtlebot/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock

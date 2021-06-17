@@ -1,6 +1,0 @@
-ros_controllers/gripper_action_controller
-/home/yannic/yannic_master/devel/.private/gripper_action_controller/cmake.lock /home/yannic/yannic_master/devel/./cmake.lock
-/home/yannic/yannic_master/devel/.private/gripper_action_controller/share/gripper_action_controller/cmake/gripper_action_controllerConfig.cmake /home/yannic/yannic_master/devel/share/gripper_action_controller/cmake/gripper_action_controllerConfig.cmake
-/home/yannic/yannic_master/devel/.private/gripper_action_controller/share/gripper_action_controller/cmake/gripper_action_controllerConfig-version.cmake /home/yannic/yannic_master/devel/share/gripper_action_controller/cmake/gripper_action_controllerConfig-version.cmake
-/home/yannic/yannic_master/devel/.private/gripper_action_controller/lib/libgripper_action_controller.so /home/yannic/yannic_master/devel/lib/libgripper_action_controller.so
-/home/yannic/yannic_master/devel/.private/gripper_action_controller/lib/pkgconfig/gripper_action_controller.pc /home/yannic/yannic_master/devel/lib/pkgconfig/gripper_action_controller.pc
