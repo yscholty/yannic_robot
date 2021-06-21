@@ -59,7 +59,7 @@ if __name__ == '__main__':
         #rospy.loginfo(rangedata[1])
         #rospy.loginfo(rangedata[2])
         
-        if ((np.min(rangedata) < threshold) & (flag ==0)) : 
+        if ((np.min(rangedata) < threshold) ) : 
             #publish empty message to GoalID -> stop motion  
             group.stop()    
             flag = 1
