@@ -217,7 +217,7 @@ void setID() {
 
 void read_dual_sensors() {
 
-  nh.loginfo("dualsensor");
+  //nh.loginfo("dualsensor");
   
   lox1.rangingTest(&measure1, false); // pass in 'true' to get debug data printout!
   lox2.rangingTest(&measure2, false); // pass in 'true' to get debug data printout!
@@ -411,13 +411,13 @@ void loop() {
   readservo3 = analogRead(A2);
   readservo_rotate = analogRead(A3);
   readservo_gripper = analogRead(A4);
-/*
-  pos[0]=-(readservo1-240) * (180.0/325.0) *3.1416/180;
-  pos[1]=(readservo2-103) * (180.0/314.0) *3.1416/180;
-  pos[2]=-(readservo3-240) * (180.0/339.0) *3.1416/180;  
-  pos[3]=-(readservo_rotate+149) * (180.0/340) *3.1416/180; 
-  pos[4]=(readservo_gripper-95) * (180.0/-152) *3.1416/180*1/40; 
-*/
+
+  pos[0]=-(readservo1-240) * (180.0/325.0) ;
+  pos[1]=(readservo2-103) * (180.0/314.0) ;
+  pos[2]=-(readservo3-240) * (180.0/339.0) ;  
+  pos[3]=-(readservo_rotate-240) * (180.0/340) ; 
+  pos[4]=(readservo_gripper-95) * (180.0/-152) ; 
+
   //char re[8];
   //dtostrf(pos[4], 6, 2, re);
   //nh.loginfo(re);

@@ -82,9 +82,13 @@ for (int i = 0; i < num_joints_; ++i) {
 
   void arrayCallback(const sensor_msgs::JointState::ConstPtr &msg) {
     std::unique_lock<std::mutex> lck(joint_mtx_);
-    for (unsigned int i = 0; i < msg->name.size(); i++) {
-      joint_position_state_[msg->name[i]] = msg->position[i];
-    }
+    //for (unsigned int i = 0; i < msg->name.size(); i++) {
+      joint_position_state_[msg->name[0]] = angles::from_degrees(msg->position[0]);
+      joint_position_state_[msg->name[1]] = angles::from_degrees(msg->position[1]);
+      joint_position_state_[msg->name[2]] = angles::from_degrees(msg->position[2]);
+      joint_position_state_[msg->name[3]] = angles::from_degrees(msg->position[3]);
+      joint_position_state_[msg->name[4]] = angles::from_degrees(msg->position[4])*1/40;
+    
   }
 
   ~ROBOTHardwareInterface(){
