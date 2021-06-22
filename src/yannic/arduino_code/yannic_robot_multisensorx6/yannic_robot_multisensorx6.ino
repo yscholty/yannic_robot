@@ -442,13 +442,13 @@ void loop() {
  */
 
   pos[0]=-((0.616 * readservo1) - (56.3)) ;
-  pos[1]=((0.74 * readservo2) - (110.3)) ;
+  pos[1]=-((0.74 * readservo2) - (110.3)) ;
   pos[2]=-((0.652 * readservo3) - (66.5)) ;  
   pos[3]=-((0.643 * readservo_rotate) - (63)) ;
   pos[4]=(readservo_gripper-95) * (180.0/-152) ; 
 
   char re[8];
-  dtostrf(readservo_rotate, 6, 2, re);
+  dtostrf(readservo2, 6, 2, re);
   nh.loginfo(re);
 
   robot_state.header.stamp = nh.now();
