@@ -30,14 +30,15 @@ public:
         pub = robot_hw_nh.advertise<sensor_msgs::JointState>("/joints_to_arduino",10);
         controller_manager_.reset(new controller_manager::ControllerManager(this, robot_hw_nh));
 
-        joints_pub.position.clear();
-	joints_pub.position.push_back((0 ));
-	joints_pub.position.push_back((90 ));
-joints_pub.position.push_back((0 ));	
-joints_pub.position.push_back((90 ));
-joints_pub.position.push_back((90 ));
-pub.publish(joints_pub);
-
+/*
+              joints_pub.position.clear();
+	            joints_pub.position.push_back((0 ));
+	            joints_pub.position.push_back((120 ));
+              joints_pub.position.push_back((0 ));	
+              joints_pub.position.push_back((90 ));
+              joints_pub.position.push_back((90 ));
+              pub.publish(joints_pub);
+              */
         
         num_joints_=5;
 	joint_names_[0]="joint1";	
@@ -77,7 +78,7 @@ for (int i = 0; i < num_joints_; ++i) {
     
 	joints_pub.position.clear();
 	joints_pub.position.push_back((90 - angles::to_degrees(joint_position_command_[0])));
-	joints_pub.position.push_back(( 120 - angles::to_degrees(joint_position_command_[1])));
+	joints_pub.position.push_back(( 30 + angles::to_degrees(joint_position_command_[1])));
 	joints_pub.position.push_back( ( 90 - angles::to_degrees(joint_position_command_[2])));
 	joints_pub.position.push_back(90 - (angles::to_degrees(joint_position_command_[3])));
 	joints_pub.position.push_back((angles::to_degrees(joint_position_command_[4])));
