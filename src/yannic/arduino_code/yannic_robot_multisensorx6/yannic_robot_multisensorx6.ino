@@ -15,6 +15,7 @@
 #include <std_msgs/String.h>
 #include <std_msgs/Int16MultiArray.h>
 #include "Adafruit_VL53L0X.h"
+#include <rospy_tutorials/Floats.h>
 
 /////////////////////////////////////////////
 //////////range sensors update //////////////
@@ -84,14 +85,16 @@ double gripper_joint_angle = 0;
 unsigned long t;
 
 // function call -> processing joint_states and controlling servos
+
 void servo_cb(const sensor_msgs::JointState& cmd_msg){
   //get the values from joint_states topic
   //calibrate position of servos so they match the initial simulation start +/- changes direction.
-  rotate_base_angle = radiansToDegrees(-1*cmd_msg.position[0]);
-  joint1_angle = radiansToDegrees( -1*cmd_msg.position[1]+0.04 );
-  joint2_angle = radiansToDegrees(cmd_msg.position[2]-1.04);
-  joint3_angle = radiansToDegrees( -1*cmd_msg.position[3] + 0.08 );
-  gripper_joint_angle = radiansToDegrees(-100*cmd_msg.position[4]+2.5 );
+  
+  joint1_angle =  cmd_msg.position[0] ;
+  joint2_angle = cmd_msg.position[1];
+  joint3_angle =  cmd_msg.position[2] ;
+  rotate_base_angle = cmd_msg.position[3];
+  gripper_joint_angle = cmd_msg.position[4] ;
   
   //write the values from joint_states to the connected Servos
   rotate_base.write(rotate_base_angle);
@@ -99,6 +102,7 @@ void servo_cb(const sensor_msgs::JointState& cmd_msg){
   joint2.write(joint2_angle);
   joint3.write(joint3_angle);
   gripper_joint.write(gripper_joint_angle);
+  nh.loginfo("arduino writttttten");
 }
 
 //-----------------ROS setup-------------------//
@@ -335,7 +339,7 @@ void setup() {
   while (!nh.connected() ){
     nh.spinOnce();
 }
-
+/*
   pinMode(SHT_LOX1, OUTPUT);
   pinMode(SHT_LOX2, OUTPUT);
   pinMode(SHT_LOX3, OUTPUT);
@@ -368,6 +372,7 @@ void setup() {
   range_msg.data = (int *)malloc(sizeof(int)*6);
   // Fulfill the sensor_msg/JointState msg
   //define the header of the joint_state message
+  */
   
   robot_state.header.frame_id = robot_id;
   robot_state.name = joint_name;
@@ -396,12 +401,12 @@ void setup() {
 
 void loop() {
 
-  read_dual_sensors();
+  //read_dual_sensors();
   if (millis()-t > 100) {
 
   //reading the RANGE sensor and publishing to the corresponding topic
     
-    pub_range.publish(&range_msg);
+    //pub_range.publish(&range_msg);
    
 
    
@@ -411,16 +416,40 @@ void loop() {
   readservo3 = analogRead(A2);
   readservo_rotate = analogRead(A3);
   readservo_gripper = analogRead(A4);
+/*
+ joint1 :
+ -30  :  140
+ -120 :  286
 
-  pos[0]=-(readservo1-240) * (180.0/325.0) ;
-  pos[1]=(readservo2-103) * (180.0/314.0) ;
-  pos[2]=-(readservo3-240) * (180.0/339.0) ;  
-  pos[3]=-(readservo_rotate-240) * (180.0/340) ; 
+ joint2 :
+ -40  : 203
+ -120 : 311
+ 
+  joint3 :
+ -0   : 102
+ -180 : 378
+
+   rotate_base :
+ -0   : 98
+ -180 : 382
+
+   gripper :
+ -0   : 102
+ -180 : 378
+
+ angle = (adc_x - adc_0) * 180/(adc_180 - adc_0)
+ or https://www.mathepower.com/lineare_funktionen.php
+ */
+
+  pos[0]=-((0.616 * readservo1) - (56.3)) ;
+  pos[1]=((0.74 * readservo2) - (110.3)) ;
+  pos[2]=-((0.652 * readservo3) - (66.5)) ;  
+  pos[3]=-((0.643 * readservo_rotate) - (63)) ;
   pos[4]=(readservo_gripper-95) * (180.0/-152) ; 
 
-  //char re[8];
-  //dtostrf(pos[4], 6, 2, re);
-  //nh.loginfo(re);
+  char re[8];
+  dtostrf(readservo_rotate, 6, 2, re);
+  nh.loginfo(re);
 
   robot_state.header.stamp = nh.now();
   robot_state.position = pos;

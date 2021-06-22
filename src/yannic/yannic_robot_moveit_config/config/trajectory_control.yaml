@@ -3,16 +3,16 @@ yannic_robot:
   type: joint_state_controller/JointStateController
   publish_rate: 50
  robot_arm_joint_controller:
-  type: "position_controllers/JointPositionController"
+  type: "position_controllers/JointTrajectoryController"
   joints:
    - joint1
    - joint2
    - joint3 
    - rotate_base
-   - gripper_joint
+
   gains:
-   joint1: {p: 1000.0, i: 0.0, d: 0.1}
-   joint2: {p: 1000.0, i: 0.0, d: 0.1}
-   joint3: {p: 1000.0, i: 0.0, d: 0.1}
-   rotate_base: {p: 1000.0, i: 0.0, d: 0.1}
-   gripper_joint: {p: 1000.0, i: 0.0, d: 0.1}
+   joint1: {p: 10000.0, i: 1.0, d: 0.1}
+   joint2: {p: 10000.0, i: 1.0, d: 0.1}
+   joint3: {p: 10000.0, i: 1.0, d: 0.1}
+   rotate_base: {p: 10000.0, i: 1.0, d: 0.1}
+   gripper_joint: {p: 1000.0, i: 1.0, d: 0.1}

@@ -3,16 +3,17 @@
 
 control 5 joints through Moveit and ROS.
 
-IKFast solution is still only Translation3D - might need to write own IK Plugin
-
 Startup: ->
+catkin build
 source ~/yannic_master/devel/setup.bash
-roslaunch yannic_robot_moveit_config demo.launch
+roslaunch yannic_robot_moveit_config demo_stop_motion_array.launch 
 
-"go to scripts in yannic_robot" ->
-./yannic_test.py
-"new terminal" ->
-./test.py
+What it does: 
+Move red marker with mouse and right click on it. in the context menu select the action as wanted. for example execute motion. Robot will try to reach the desired marker point. If an object is entering the safe space of the distance sensors, the motion will stop. once removing this object again, the motion will be resumed
+
+
+
+
 
 --------->> robot stops when distance threshold is reached and motion will be resumed after clearing the space again
 

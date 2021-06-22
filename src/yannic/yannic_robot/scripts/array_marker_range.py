@@ -45,6 +45,8 @@ def processFeedback(feedback):
     if feedback.event_type == InteractiveMarkerFeedback.MENU_SELECT:
         if feedback.menu_entry_id==1:
 	        goal_position.publish(feedback.pose)
+        	
+
         	group.set_position_target([feedback.pose.position.x,feedback.pose.position.y,feedback.pose.position.z])
         	plan = group.go(wait=True)
         	group.stop()
@@ -107,14 +109,6 @@ def processFeedback(feedback):
             	for m in viapoints_marker.markers:
             		m.action=Marker().DELETE
             		marker_pub.publish(viapoints_marker)
-            		print('Cleared all viapoints')
-			
-		        
-            else:
-                print('No via points set')
-        
-
-    server.applyChanges()
     
   
 
@@ -139,6 +133,8 @@ if __name__=="__main__":
 	scene = moveit_commander.PlanningSceneInterface()
 	group_name = "robot_arm"
 	group = moveit_commander.MoveGroupCommander(group_name)
+	group.set_goal_tolerance(0.01)
+
 	
 	# create an interactive marker server on the topic namespace simple_marker
 	server = InteractiveMarkerServer("simple_marker")

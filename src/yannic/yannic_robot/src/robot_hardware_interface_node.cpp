@@ -27,7 +27,7 @@ public:
 
   bool init(ros::NodeHandle &root_nh, ros::NodeHandle &robot_hw_nh){
         joint_state_sub_ = root_nh.subscribe("joint_feedback", 1000, &ROBOTHardwareInterface::arrayCallback, this);
-        pub = robot_hw_nh.advertise<rospy_tutorials::Floats>("/joints_to_arduino",10);
+        pub = robot_hw_nh.advertise<sensor_msgs::JointState>("/joints_to_arduino",10);
         controller_manager_.reset(new controller_manager::ControllerManager(this, robot_hw_nh));
 
         
@@ -60,21 +60,21 @@ for (int i = 0; i < num_joints_; ++i) {
   void read(const ros::Time &time, const ros::Duration &period) {
     std::unique_lock<std::mutex> lck(joint_mtx_);
     for (const auto name : joint_names_) {
-      ROS_INFO_STREAM(name << " " << joint_position_state_[name]);
+      ROS_INFO_STREAM(name << " " << angles::to_degrees(joint_position_state_[name]));
     }
   }
   
   void write(const ros::Time &time, const ros::Duration &period) {
     
-	joints_pub.data.clear();
-	joints_pub.data.push_back(90-(angles::to_degrees(joint_position_command_[0])));
-	joints_pub.data.push_back(90+(angles::to_degrees(joint_position_command_[1])));
-	joints_pub.data.push_back(90+(angles::to_degrees(joint_position_command_[2])));
-	joints_pub.data.push_back(90+(angles::to_degrees(joint_position_command_[3])));
-	joints_pub.data.push_back(90+(angles::to_degrees(joint_position_command_[4])));
+	joints_pub.position.clear();
+	joints_pub.position.push_back((90 - angles::to_degrees(joint_position_command_[0])));
+	joints_pub.position.push_back((90 - angles::to_degrees(joint_position_command_[1])));
+	joints_pub.position.push_back( ( 90 - angles::to_degrees(joint_position_command_[2])));
+	joints_pub.position.push_back(90 - (angles::to_degrees(joint_position_command_[3])));
+	joints_pub.position.push_back((angles::to_degrees(joint_position_command_[4])));
 	//ROS_INFO("Publishing j1: %.2f, j2: %.2f, j3: %.2f, j4: %.2f, j5: %.2f",joints_pub.data[0],joints_pub.data[1],joints_pub.data[2],joints_pub.data[3],joints_pub.data[4]);
 	
-	ROS_INFO("Publishing j1: %.2f, j2: %.2f, j3: %.2f, j4: %.2f, j5: %.2f",joint_position_command_[0],joint_position_command_[1],joint_position_command_[2],joint_position_command_[3],joint_position_command_[4]);
+	ROS_INFO("Publishing j1: %.2f, j2: %.2f, j3: %.2f, j4: %.2f, j5: %.2f",joints_pub.position[0],joints_pub.position[1],joints_pub.position[2],joints_pub.position[3],joints_pub.position[4]);
 	pub.publish(joints_pub);	
 }
 
@@ -83,10 +83,10 @@ for (int i = 0; i < num_joints_; ++i) {
   void arrayCallback(const sensor_msgs::JointState::ConstPtr &msg) {
     std::unique_lock<std::mutex> lck(joint_mtx_);
     //for (unsigned int i = 0; i < msg->name.size(); i++) {
-      joint_position_state_[msg->name[0]] = angles::from_degrees(msg->position[0]);
-      joint_position_state_[msg->name[1]] = angles::from_degrees(msg->position[1]);
-      joint_position_state_[msg->name[2]] = angles::from_degrees(msg->position[2]);
-      joint_position_state_[msg->name[3]] = angles::from_degrees(msg->position[3]);
+      joint_position_state_[msg->name[0]] = angles::from_degrees(90 + msg->position[0]);
+      joint_position_state_[msg->name[1]] = angles::from_degrees( msg->position[1]);
+      joint_position_state_[msg->name[2]] = angles::from_degrees(90+ msg->position[2]);
+      joint_position_state_[msg->name[3]] = angles::from_degrees(90 + msg->position[3]);
       joint_position_state_[msg->name[4]] = angles::from_degrees(msg->position[4])*1/40;
     
   }
@@ -107,7 +107,7 @@ private:
   double joint_velocity_[5];
   double joint_effort_[5];
   double joint_position_command_[5];
-  rospy_tutorials::Floats joints_pub;
+  sensor_msgs::JointState joints_pub;
   boost::shared_ptr<controller_manager::ControllerManager> controller_manager_;
 
   MapType joint_position_state_;
