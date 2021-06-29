@@ -58,11 +58,11 @@
     <param name="port"              type="string"               value="/dev/ttyACM0"/>
     <param name="baud"              type="int"                  value="250000"/>
     </node>
-
+ <!--
   
   <node name="yannic_robot_set_marker" pkg="yannic_robot" type="array_marker_range.py" output="screen"  >
   </node>
- <!--
+
  <node name="yannic_robot_range" pkg="yannic_robot" type="array_range_to_flag.py" output="screen"  >
   </node>
   

@@ -13,7 +13,7 @@
     <arg name="load_robot_description" value="true"/>
   </include>
   
-  <node name="ROBOT_hardware_interface" pkg="yannic_robot" type="robot_hardware_interface" output="screen"/>
+
 
   <node name="joint_controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
 		output="screen" args="/yannic_robot/joint_state_controller" >
@@ -29,7 +29,7 @@
   <node name="joint_controller" pkg="controller_manager" type="spawner" respawn="false"
     output="screen" args="/yannic_robot/robot_arm_joint_controller"/>
 
- 
+   <node name="ROBOT_hardware_interface" pkg="yannic_robot" type="robot_hardware_interface" output="screen"/>
 
   <include file="$(find yannic_robot_moveit_config)/launch/move_group.launch">
   <arg name="publish_monitored_planning_scene" value="true" />
@@ -50,7 +50,13 @@
     </node>
 
   
-  <!-- <node name="yannic_robot_set_marker" pkg="yannic_robot" type="array_marker_range.py" output="screen"  >
+ <node name="yannic_robot_set_marker" pkg="yannic_robot" type="array_marker_range.py" output="screen"  >
   </node>
-    -->
+  <!--
+   <node name="yannic_robot_range" pkg="yannic_robot" type="array_range_to_flag.py" output="screen"  >
+  </node>
+  
+  <node name="yannic_robot_execute_motion" pkg="yannic_robot" type="yannic_robot_execute_motion.py" output="screen"  >
+  </node>  
+-->
 </launch>

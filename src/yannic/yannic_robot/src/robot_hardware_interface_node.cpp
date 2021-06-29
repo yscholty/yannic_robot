@@ -5,6 +5,9 @@
 #include <map>
 #include <vector>
 
+#include<unistd.h>
+unsigned int microsecond = 1000000;
+
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/joint_command_interface.h>
 #include <hardware_interface/robot_hw.h>
@@ -15,6 +18,16 @@
 #include <controller_manager/controller_manager.h>
 #include <angles/angles.h>
 #include <rospy_tutorials/Floats.h>
+
+#include <moveit/move_group_interface/move_group_interface.h>
+#include <moveit/planning_scene_interface/planning_scene_interface.h>
+#include <moveit_msgs/DisplayRobotState.h>
+#include <moveit_msgs/DisplayTrajectory.h>
+
+#include <moveit_msgs/AttachedCollisionObject.h>
+#include <moveit_msgs/CollisionObject.h>
+
+//#include <moveit_visual_tools/moveit_visual_tools.h>
 
 
 typedef std::map<std::string, double> MapType;
@@ -29,18 +42,8 @@ public:
         joint_state_sub_ = root_nh.subscribe("joint_feedback", 1000, &ROBOTHardwareInterface::arrayCallback, this);
         pub = robot_hw_nh.advertise<sensor_msgs::JointState>("/joints_to_arduino",10);
         controller_manager_.reset(new controller_manager::ControllerManager(this, robot_hw_nh));
-
-/*
-              joints_pub.position.clear();
-	            joints_pub.position.push_back((0 ));
-	            joints_pub.position.push_back((120 ));
-              joints_pub.position.push_back((0 ));	
-              joints_pub.position.push_back((90 ));
-              joints_pub.position.push_back((90 ));
-              pub.publish(joints_pub);
-              */
         
-        num_joints_=5;
+  num_joints_=5;
 	joint_names_[0]="joint1";	
 	joint_names_[1]="joint2";
 	joint_names_[2]="joint3";
@@ -130,15 +133,12 @@ private:
 };
 
 int main(int argc, char **argv) {
+
+
+
   ros::init(argc, argv, "robot_hardware_interface");
   ros::NodeHandle nh;
 
-  
-
-  
-  
-  
-  
 
 
   ros::AsyncSpinner spinner(
@@ -146,13 +146,29 @@ int main(int argc, char **argv) {
           // get the feedback from arduino
   spinner.start();
 
+
+  
+  
+
   ROBOTHardwareInterface ROBOT;
   controller_manager::ControllerManager cm(&ROBOT);
   //controller_manager_.reset(new controller_manager::ControllerManager(ROBOTHardwareInterface, nh));
 
   bool init_success = ROBOT.init(nh, nh);
 
+  
+  
+
   ros::Duration period(1.0 / 10); // 10Hz update rate
+
+  usleep(7 * microsecond);//sleeps for 7 seconds
+  time_t start    = time(0); 
+  while (clock() < 100) {
+    ROS_INFO("init-Readiiiing");
+    ROBOT.read(ros::Time::now(), period);
+    ROS_INFO("init-Updatiiiing");
+    cm.update(ros::Time::now(), period);
+  }
   while (ros::ok()) {
     ROS_INFO("Readiiiing");
     ROBOT.read(ros::Time::now(), period);

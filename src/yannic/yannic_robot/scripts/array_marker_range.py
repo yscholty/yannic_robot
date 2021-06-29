@@ -5,10 +5,11 @@
 import rospy
 import tf
 import copy
+import time
 
 import moveit_commander
 import moveit_msgs.msg
-import geometry_msgs.msg
+from geometry_msgs.msg import Pose
 from math import pi
 from std_msgs.msg import String
 from moveit_commander.conversions import pose_to_list
@@ -113,6 +114,7 @@ def processFeedback(feedback):
   
 
 if __name__=="__main__":
+	time.sleep(2)
 	rospy.init_node("simple_marker")
 	
 	#rospy.Subscriber("range_data", Range, callback)
@@ -134,6 +136,11 @@ if __name__=="__main__":
 	group_name = "robot_arm"
 	group = moveit_commander.MoveGroupCommander(group_name)
 	group.set_goal_tolerance(0.01)
+
+	group.set_position_target([0.2,-0.2,0])
+	plan = group.go(wait=True)
+	group.stop()
+	group.clear_pose_targets()
 
 	
 	# create an interactive marker server on the topic namespace simple_marker

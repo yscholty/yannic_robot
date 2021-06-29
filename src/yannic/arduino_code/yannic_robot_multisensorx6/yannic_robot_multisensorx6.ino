@@ -16,6 +16,7 @@
 #include <std_msgs/Int16MultiArray.h>
 #include "Adafruit_VL53L0X.h"
 #include <rospy_tutorials/Floats.h>
+#include <avr/pgmspace.h>
 
 /////////////////////////////////////////////
 //////////range sensors update //////////////
@@ -87,22 +88,16 @@ unsigned long t;
 // function call -> processing joint_states and controlling servos
 
 void servo_cb(const sensor_msgs::JointState& cmd_msg){
-  //get the values from joint_states topic
-  //calibrate position of servos so they match the initial simulation start +/- changes direction.
-  
-  joint1_angle =  cmd_msg.position[0] ;
-  joint2_angle = cmd_msg.position[1];
-  joint3_angle =  cmd_msg.position[2] ;
-  rotate_base_angle = cmd_msg.position[3];
-  gripper_joint_angle = cmd_msg.position[4] ;
-  
+  //get the values from joints_to_arduino
+
   //write the values from joint_states to the connected Servos
-  rotate_base.write(rotate_base_angle);
-  joint1.write(joint1_angle);
-  joint2.write(joint2_angle);
-  joint3.write(joint3_angle);
-  gripper_joint.write(gripper_joint_angle);
+  rotate_base.write(cmd_msg.position[3]);
+  joint1.write(cmd_msg.position[0]);
+  joint2.write(cmd_msg.position[1]);
+  joint3.write(cmd_msg.position[2]);
+  gripper_joint.write(cmd_msg.position[4]);
   nh.loginfo("arduino writttttten");
+  
 }
 
 //-----------------ROS setup-------------------//
@@ -339,7 +334,7 @@ void setup() {
   while (!nh.connected() ){
     nh.spinOnce();
 }
-/*
+
   pinMode(SHT_LOX1, OUTPUT);
   pinMode(SHT_LOX2, OUTPUT);
   pinMode(SHT_LOX3, OUTPUT);
@@ -372,7 +367,7 @@ void setup() {
   range_msg.data = (int *)malloc(sizeof(int)*6);
   // Fulfill the sensor_msg/JointState msg
   //define the header of the joint_state message
-  */
+  
   
   robot_state.header.frame_id = robot_id;
   robot_state.name = joint_name;
@@ -401,12 +396,12 @@ void setup() {
 
 void loop() {
 
-  //read_dual_sensors();
+  
   if (millis()-t > 100) {
 
   //reading the RANGE sensor and publishing to the corresponding topic
-    
-    //pub_range.publish(&range_msg);
+    read_dual_sensors();
+    pub_range.publish(&range_msg);
    
 
    
@@ -441,15 +436,12 @@ void loop() {
  or https://www.mathepower.com/lineare_funktionen.php
  */
 
-  pos[0]=-((0.616 * readservo1) - (56.3)) ;
-  pos[1]=-((0.74 * readservo2) - (110.3)) ;
-  pos[2]=-((0.652 * readservo3) - (66.5)) ;  
-  pos[3]=-((0.643 * readservo_rotate) - (63)) ;
-  pos[4]=(readservo_gripper-95) * (180.0/-152) ; 
+  pos[0]=-((0.616 * analogRead(A0)) - (56.3)) ;
+  pos[1]=-((0.74 * analogRead(A1)) - (110.3)) ;file:///home/d5004/yannic_robot/src/yannic/arduino_code/yannic_robot_sensor/yannic_robot_sensor.ino
 
-  char re[8];
-  dtostrf(readservo2, 6, 2, re);
-  nh.loginfo(re);
+  pos[2]=-((0.652 * analogRead(A2)) - (66.5)) ;  
+  pos[3]=-((0.643 * analogRead(A3)) - (63)) ;
+  pos[4]=(analogRead(A4)-95) * (180.0/-152) ; 
 
   robot_state.header.stamp = nh.now();
   robot_state.position = pos;

@@ -61,6 +61,10 @@
   <build_depend>std_msgs</build_depend>
   <build_depend>std_srvs</build_depend>
   <build_depend>trajectory_msgs</build_depend>
+  
+  <build_depend>eigen</build_depend>
+  <build_depend>cmake_modules</build_depend>
+  
   <build_depend>visualization_msgs</build_depend>
   <build_depend>message_generation</build_depend>
   <build_export_depend>actionlib</build_export_depend>

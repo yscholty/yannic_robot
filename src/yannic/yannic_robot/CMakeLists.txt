@@ -8,6 +8,11 @@ project(yannic_robot)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+
+  moveit_core
+  moveit_ros_planning 
+  moveit_ros_planning_interface 
+
   actionlib
   control_msgs
   controller_manager
@@ -19,6 +24,9 @@ find_package(catkin REQUIRED COMPONENTS
   visualization_msgs
   message_generation
 )
+
+
+find_package(Eigen3 REQUIRED)
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -126,6 +134,8 @@ include_directories(
  include
   ${catkin_INCLUDE_DIRS}
   ${Boost_INCLUDE_DIRS}
+  ${EIGEN3_INCLUDE_DIR}
+
 )
 
 ## Declare a C++ library
