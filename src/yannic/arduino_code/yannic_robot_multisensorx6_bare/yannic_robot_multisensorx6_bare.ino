@@ -86,8 +86,8 @@ void servo_cb(const sensor_msgs::JointState& cmd_msg){
   //get the values from joint_states topic
   //calibrate position of servos so they match the initial simulation start +/- changes direction.
   rotate_base_angle = radiansToDegrees(-1*cmd_msg.position[0]);
-  joint1_angle = radiansToDegrees( -1*cmd_msg.position[1]+0.04 );
-  joint2_angle = radiansToDegrees(cmd_msg.position[2]-1.04);
+  joint1_angle = radiansToDegrees( -1*cmd_msg.position[1]+0.14 );
+  joint2_angle = radiansToDegrees(cmd_msg.position[2]-1.12);
   joint3_angle = radiansToDegrees( -1*cmd_msg.position[3] + 0.08 );
   gripper_joint_angle = radiansToDegrees(-100*cmd_msg.position[4]+2.5 );
   
@@ -226,9 +226,9 @@ void read_dual_sensors() {
   // print sensor one reading
   //nh.loginfo("1: ");
   if(measure1.RangeStatus != 4) {     // if not out of range
-  //  char result1[8];
-  //dtostrf(measure1.RangeMilliMeter, 6, 2, result1);
-  //nh.loginfo(result1);
+  char result1[8];
+  dtostrf(measure1.RangeMilliMeter, 6, 2, result1);
+  nh.loginfo(result1);
     range_msg.data[0] = measure1.RangeMilliMeter;
   } else {
     range_msg.data[0] = 4000;
