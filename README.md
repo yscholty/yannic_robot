@@ -3,20 +3,16 @@
 
 control 5 joints through Moveit and ROS.
 
-IKFast solution is still only Translation3D - might need to write own IK Plugin
+IKFast solution is Translation3D 
 
 Startup: ->
 source ~/yannic_master/devel/setup.bash
-roslaunch yannic_robot_moveit_config demo.launch
+roslaunch yannic_robot_moveit_config demo_stop_motion_array.launch
 
-"go to scripts in yannic_robot" ->
-./yannic_test.py
-"new terminal" ->
-./test.py
 
 --------->> robot stops when distance threshold is reached and motion will be resumed after clearing the space again
 
+if just the urdf shall be displayed, run:
+roslaunch yannic_robot check_urdf.launch
 
-ToDO:
-still no feedback from servos but fake_joint_states
-edit velocity of the robot motions using the distance sensors
+
